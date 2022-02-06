@@ -1,0 +1,473 @@
+/*
+ * Mixin used to create custom property with content class fallback
+ */
+@mixin prop($prop, $name, $realm, $class) {
+  --_#{$prop}: var(
+    --#{$realm}--#{$class}--#{$name}--#{$prop},
+    var(--#{$realm}--#{$class}--#{$prop})
+  );
+}
+
+/*
+ * Mixin used to create typografy sets
+ */
+@mixin typo($name, $selectors) {
+  #{$selectors} {
+    @extend .content--class--text;
+
+    @include prop('vspace-before', $name, 'content', 'text');
+    @include prop('vspace-after', $name, 'content', 'text');
+
+    @include prop('font-family', $name, 'content', 'text');
+    @include prop('font-size', $name, 'content', 'text');
+    @include prop('font-weight', 'content', $name, 'text');
+    @include prop('line-height', 'content', $name, 'text');
+  }
+}
+
+/*
+ * Theme is a special class that resets evertything
+ * Then you can override the settings that should b changed.
+ */
+%theme {
+  --content--air--normal: 15px;
+  --content--width--normal: 600px;
+  --content--width--narrow: 500px;
+  --content--width--wide: 700px;
+
+  --content--text--vspace-before: 0;
+  --content--text--vspace-before: 0;
+  --content--text--headline-1--vspace-before: 0.67em;
+  --content--text--headline-1--vspace-after: 0.67em;
+  --content--text--headline-2--vspace-before: 0.75em;
+  --content--text--headline-2--vspace-after: 0.75em;
+  --content--text--headline-3--vspace-before: 0.5em;
+  --content--text--headline-3--vspace-after: 0.5em;
+  --content--text--headline-4--vspace-before: 0.4em;
+  --content--text--headline-4--vspace-after: 0.4em;
+  --content--text--body--vspace-before: 1.12em;
+  --content--text--body--vspace-after: 1.12em;
+  --content--text--body-2--vspace-before: 1.12em;
+  --content--text--body-2--vspace-after: 1.12em;
+
+  --content--media--vspace-before: 0;
+  --content--media--vspace-after: 0;
+  --content--media--img-embed--vspace-before: 1em;
+  --content--media--img-embed--vspace-after: 1em;
+
+  --content--widget--vspace-before: 0;
+  --content--widget--vspace-after: 0;
+  --content--widget--card--vspace-before: 1em;
+  --content--widget--card--vspace-after: 1em;
+}
+
+// This is our main theme (overrides from %theme)
+%theme--site {
+  --content--width--normal: 500px;
+  --content--width--narrow: 400px;
+  --content--width--wide: 800px;
+}
+
+// Anywhere in the tree we can switch over to another theme
+.theme--full-width {
+  --content--width--normal: 100%;
+  --content--width--narrow: 100%;
+}
+
+.theme--vspace--1 {
+  --_vspace--header: 0px;
+}
+
+/*
+ * Themes are used to set up look and feel for
+ * parts of the site. On this site we want
+ * two different kind of cards. 
+ */
+%theme--card-a {
+}
+
+%theme--card-b {
+}
+
+// A naive reset *for this demo only*
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: pink;
+}
+
+// Test to see what would happen with something like contextuals in drupal *for this demo only*
+.contextual {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+// Helper classes to set some background colors *for this demo only*
+.color-r {
+  --bg-clr: red;
+}
+
+.color-g {
+  --bg-clr: green;
+}
+
+.color-b {
+  --bg-clr: blue;
+}
+
+/*
+ * Groups provides a way to group content together and
+ * should handle stuff like:
+ *  * color schemes
+ *  * dividers like borders
+ *  * ???
+ *
+ * The group resets the flow box
+ * The markup is always 2 divs with modifiers on the first:
+ *  div.group[.modifiers] > div
+ *
+ *
+ */
+.group {
+  @extend .content--class--widget;
+
+  //display: block flow-root;
+  background-color: var(--bg-clr);
+  overflow-x: auto;
+
+  > div {
+    margin-top: var(--_vspace--header, var(--_group--vspace--header--default));
+    margin-bottom: var(
+      --_vspace--footer,
+      var(--_group--vspace--footer--default)
+    );
+
+    > :first-child {
+      .group--header {
+        margin-top: calc(-1 * var(--_vspace--header));
+      }
+    }
+
+    > :last-child {
+      .group--footer {
+        margin-bottom: calc(-1 * var(--_vspace--footer));
+      }
+    }
+
+    > :first-child:last-child {
+      .group--banner {
+        margin-top: calc(-1 * var(--_vspace--header));
+        margin-bottom: calc(-1 * var(--_vspace--footer));
+      }
+    }
+  }
+}
+
+/*
+ * The content items share some properties but they
+ * do not share a "base class". The class .content 
+ * can be used to make any markup "content" but it 
+ * is also extended by other tags and classes like 
+ * p, img and .preamble to make them become content.
+ */
+.content {
+  --_content--width: var(--content--width, var(--content--width--default));
+  --_content--air: var(--content--air, var(--content--air--default));
+  --_vspace-before: var(
+    --content--vspace-before,
+    var(--content--vspace-before--default)
+  );
+  --_vspace-after: var(
+    --content--vspace-after,
+    var(--content--vspace-after--default)
+  );
+}
+
+.content {
+  position: relative;
+  //width: calc(100% - var(--_content--air)*2);
+  max-width: \min(
+    var(--_content--width, 0px),
+    calc(
+      100vw - var(--scrollbar--width, 0px) - var(--content--air--default, 0px) *
+        2
+    )
+  );
+  margin-top: var(--_vspace-before);
+  margin-bottom: var(--_vspace-after);
+  margin-inline: auto;
+  padding: 0 var(--_content--air);
+}
+
+/*
+ * These utility modifiers can be used to alter 
+ * content behaviour.
+ */
+.content--width--normal {
+  // "normal" is a reserved content width keyword
+  --content--width: var(--content--width--normal, 500px);
+}
+
+.content--width--full {
+  // "full" is a reserved content width keyword and is always 100%
+  --content--width: 100%;
+}
+
+/*
+ * More widths can be added to the system at compile time.
+ * The names to use can be what ever but maybe "narrow" and
+ * "wide" are two good candidates
+ */
+.content--width--narrow {
+  --content--width: var(--content--width--narrow, 500px);
+}
+
+.content--width--wide {
+  // Gives the content a wider look
+  --content--width: var(--content--width--wide, 700px);
+}
+
+/*
+ * Air usage can be set per content instance using a class.
+ */
+.content--air--none {
+  --content--air: 0;
+}
+
+.content--air--normal {
+  --content--air: var(--content--air--normal, 5px);
+}
+
+/*
+ * The total margin is largest positive margin -
+ * largest negative margin so this will make sure
+ * that the margin above and below an item is always
+ * 0.
+ *
+ * Due to how margin collapsing works this markup somewhere 
+ * between two content elements will make them have no
+ * space between them.
+ * <div class="content--vspace--none"><div></div></div>
+ *
+ * Any content class can also implement a "marginkiller"
+ * by adding @extend .content--vspace--none to to some 
+ * part of the component markup. Columns does this for each
+ * item to ensure css "gap" is the feature providing the space.
+ */
+.content--vspace--none {
+  @extend .content--vspace-before--none;
+  @extend .content--vspace-after--none;
+}
+
+.content--vspace-before--none {
+  margin-top: 999px;
+
+  > * {
+    margin-top: -999px;
+  }
+}
+
+.content--vspace-after--none {
+  margin-bottom: 999px;
+
+  > * {
+    margin-bottom: -999px;
+  }
+}
+
+/*
+ * Default anonymous classes to support different
+ * default behaviors for different kind of content.
+ */
+%content--defaults--width--normal {
+  --content--width--default: var(--content--width--normal, 600px);
+}
+
+%content--defaults--width--full {
+  --content--width--default: 100%;
+}
+
+%content--defaults--air--none {
+  --content--air--default: 0px;
+}
+
+%content--defaults--air--normal {
+  --content--air--default: var(--content--air--normal, 5px);
+}
+
+//$content_media_image: img, ".img";
+// $content_media_video: ???;
+// $content_media_map: ???;
+//$content_item_teaser: ".teaser";
+
+/*
+ * Text is a content class
+ * defaults:
+ *  * air:on
+ *  * width:normal
+ */
+.content--class--text {
+  @extend .content;
+  @extend %content--defaults--air--normal;
+  @extend %content--defaults--width--normal;
+}
+
+/*
+ * Media is a content class
+ * defaults:
+ *  * air:off
+ *  * width:normal
+ */
+.content--class--media {
+  @extend .content;
+  @extend %content--defaults--air--none;
+  @extend %content--defaults--width--normal;
+}
+
+/*
+ * Groups are a special content class
+ * defaults:
+ *  * air:off
+ *  * width:full
+ */
+.content--class--widget {
+  @extend .content;
+  @extend %content--defaults--air--none;
+  @extend %content--defaults--width--full;
+}
+
+/*
+ * Colors
+ */
+.color-scheme--1 {
+  @include prop('text-color', 'color-scheme--1', 'color-scheme', 'qwe');
+}
+
+.card {
+  @extend .content--class--widget;
+
+  @include prop('vspace-before', 'card', 'content', 'widget');
+  @include prop('vspace-after', 'card', 'content', 'widget');
+
+  min-width: var(--content--card--min-width, 120px);
+  max-width: var(--content--card--max-width, 400px);
+  background-color: rgba(0, 0, 0, 0.5);
+
+  > .card__header {
+    @extend .content--air--none;
+  }
+}
+
+.compact-card {
+  @extend .content--class--widget;
+
+  min-width: var(--content--compact-card--min-width, 40px);
+  max-width: var(--content--compact-card--max-width, 200px);
+}
+
+.columns {
+  @extend .content--class--widget;
+  @extend %content--defaults--air--normal;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  > div {
+    > div {
+      @extend .content--vspace--none;
+    }
+  }
+}
+
+/*
+ * This is some sort of generic image.
+ * This should probably support <picture>
+ * and other image related features.
+ */
+.img {
+  @extend .content--class--media;
+  @extend %content--defaults--air--none;
+
+  @include prop('vspace-before', 'img', 'content', 'media');
+  @include prop('vspace-after', 'img', 'content', 'media');
+}
+
+.img-embed {
+  @extend .content--class--media;
+  @extend %content--defaults--air--normal;
+
+  @include prop('vspace-before', 'img-embed', 'content', 'media');
+  @include prop('vspace-after', 'img-embed', 'content', 'media');
+}
+
+img {
+  display: block;
+}
+
+/*
+ * The preamble text mode will most certainly be needed
+ */
+//.preamble {
+//  --_vspace-before: var(--text--preamble--space-before, ???);
+//  --_vspace-after: var(--text--preamble--space-after, ???);
+//}
+
+blockquote,
+ul,
+fieldset,
+form,
+ol,
+dl,
+dir,
+menu {
+  @extend .content--class--text;
+}
+
+.img {
+  > div {
+    background-size: cover;
+    height: 90px;
+    max-width: 100%;
+    background-image: url(https://picsum.photos/400/30);
+  }
+}
+
+.img-embed {
+  > div {
+    background-size: cover;
+    height: 90px;
+    max-width: 100%;
+    background-image: url(https://picsum.photos/400/30);
+  }
+}
+
+img {
+  width: 100%;
+}
+
+/*
+ * Typografy package with all typo levels
+ * Here we add all levels that are available
+ * in the system.
+ */
+%typo {
+  @include typo('headline-1', '.headline-1, h1, h2');
+  @include typo('headline-2', '.headline-2, h3');
+  @include typo('headline-3', '.headline-3, h4');
+  @include typo('headline-4', '.headline-4, h5, h6');
+  @include typo('body', '.body, .body, p');
+  @include typo('body-2', '.body, .body-2');
+  @include typo('ingress', '.ingress');
+  @include typo('summary', '.summary');
+  @include typo('menu', '.menu');
+  @include typo('caption', '.caption');
+}
+
+.root {
+  @extend %theme;
+  @extend %theme--site;
+  @extend %typo;
+}
