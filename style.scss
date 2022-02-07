@@ -3,16 +3,22 @@
 
 $custom-props: ();
 
+%theme-all {
+  @each $custom_prop, $custom_prop_value in $custom-props {
+    #{$custom_prop}: #{$custom_prop_value};
+  }
+}
+
 /*
  * Mixin used to create custom property with content class fallback
  */
-@mixin prop($prop, $name, $realm, $class) {
+@mixin prop($prop, $name, $realm, $class, $value) {
   $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
   --_#{$prop}: var(#{$custom_prop}, var(--#{$realm}--#{$class}--#{$prop}));
   $custom-props: map.merge(
     $custom-props,
     (
-      $custom_prop: 'qwe',
+      $custom_prop: $value,
     )
   ) !global;
 }
@@ -20,17 +26,17 @@ $custom-props: ();
 /*
  * Mixin used to create typografy sets
  */
-@mixin typo($name, $selectors) {
+@mixin typo($name, $selectors, $value) {
   #{$selectors} {
     @extend .content--class--text;
 
-    @include prop('vspace-before', $name, 'content', 'text');
-    @include prop('vspace-after', $name, 'content', 'text');
+    @include prop('vspace-before', $name, 'content', 'text', $value);
+    @include prop('vspace-after', $name, 'content', 'text', $value);
 
-    @include prop('font-family', $name, 'content', 'text');
-    @include prop('font-size', $name, 'content', 'text');
-    @include prop('font-weight', 'content', $name, 'text');
-    @include prop('line-height', 'content', $name, 'text');
+    @include prop('font-family', $name, 'content', 'text', 'Arial');
+    @include prop('font-size', $name, 'content', 'text', '16px');
+    @include prop('font-weight', 'content', $name, 'text', 'inherit');
+    @include prop('line-height', 'content', $name, 'text', 'inherit');
   }
 }
 
@@ -351,14 +357,20 @@ body {
  * Colors
  */
 .color-scheme--1 {
-  @include prop('text-color', 'color-scheme--1', 'color-scheme', 'qwe');
+  @include prop(
+    'text-color',
+    'color-scheme--1',
+    'color-scheme',
+    'qwe',
+    'black'
+  );
 }
 
 .card {
   @extend .content--class--widget;
 
-  @include prop('vspace-before', 'card', 'content', 'widget');
-  @include prop('vspace-after', 'card', 'content', 'widget');
+  @include prop('vspace-before', 'card', 'content', 'widget', '0px');
+  @include prop('vspace-after', 'card', 'content', 'widget', '0px');
 
   min-width: var(--content--card--min-width, 120px);
   max-width: var(--content--card--max-width, 400px);
@@ -400,16 +412,16 @@ body {
   @extend .content--class--media;
   @extend %content--defaults--air--none;
 
-  @include prop('vspace-before', 'img', 'content', 'media');
-  @include prop('vspace-after', 'img', 'content', 'media');
+  @include prop('vspace-before', 'img', 'content', 'media', '0px');
+  @include prop('vspace-after', 'img', 'content', 'media', '0px');
 }
 
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
 
-  @include prop('vspace-before', 'img-embed', 'content', 'media');
-  @include prop('vspace-after', 'img-embed', 'content', 'media');
+  @include prop('vspace-before', 'img-embed', 'content', 'media', '0px');
+  @include prop('vspace-after', 'img-embed', 'content', 'media', '0px');
 }
 
 img {
@@ -463,34 +475,20 @@ img {
  * in the system.
  */
 %typo {
-  @include typo('headline-1', '.headline-1, h1, h2');
-  @include typo('headline-2', '.headline-2, h3');
-  @include typo('headline-3', '.headline-3, h4');
-  @include typo('headline-4', '.headline-4, h5, h6');
-  @include typo('body', '.body, .body, p');
-  @include typo('body-2', '.body, .body-2');
-  @include typo('ingress', '.ingress');
-  @include typo('summary', '.summary');
-  @include typo('menu', '.menu');
-  @include typo('caption', '.caption');
+  @include typo('headline-1', '.headline-1, h1, h2', '0.67em');
+  @include typo('headline-2', '.headline-2, h3', '0.75em');
+  @include typo('headline-3', '.headline-3, h4', '0.5em');
+  @include typo('headline-4', '.headline-4, h5, h6', '0.4em');
+  @include typo('body', '.body, .body, p', '0.4em');
+  @include typo('body-2', '.body, .body-2', '0.4em');
+  @include typo('ingress', '.ingress', '0.4em');
+  @include typo('summary', '.summary', '0.4em');
+  @include typo('menu', '.menu', '0.4em');
+  @include typo('caption', '.caption', '0.4em');
 }
 
 .root {
   @extend %theme;
   @extend %theme--site;
   @extend %typo;
-}
-
-$custom-props: map.merge(
-  $custom-props,
-  (
-    '--zxc': 'qwe',
-  )
-);
-
-:root {
-  --qwe-a: qwe;
-  @each $custom_prop, $custom_prop_value in $custom-props {
-    #{$custom_prop}: #{$custom_prop_value};
-  }
 }
