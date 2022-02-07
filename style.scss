@@ -30,10 +30,10 @@
     @include prop('vspace-before', $name, 'layout', 'text', $value);
     @include prop('vspace-after', $name, 'layout', 'text', $value);
 
-    @include prop('font-family', 'typo', $name, 'text', 'initial');
-    @include prop('font-size', 'typo', $name, 'text', 'inital');
-    @include prop('font-weight', 'typo', $name, 'text', 'initial');
-    @include prop('line-height', 'typo', $name, 'text', 'inital');
+    @include prop('font-family', $name, 'typo', 'text', 'initial');
+    @include prop('font-size', $name, 'typo', 'text', 'inital');
+    @include prop('font-weight', $name, 'typo', 'text', 'initial');
+    @include prop('line-height', $name, 'typo', 'text', 'inital');
   }
 }
 
@@ -333,8 +333,8 @@ body {
 .card {
   @extend .content--class--widget;
 
-  @include prop('vspace-before', 'card', 'content', 'widget', '0px');
-  @include prop('vspace-after', 'card', 'content', 'widget', '0px');
+  @include prop('vspace-before', 'card', 'layout', 'widget', '0px');
+  @include prop('vspace-after', 'card', 'layout', 'widget', '0px');
 
   min-width: var(--content--card--min-width, 120px);
   max-width: var(--content--card--max-width, 400px);
@@ -376,16 +376,16 @@ body {
   @extend .content--class--media;
   @extend %content--defaults--air--none;
 
-  @include prop('vspace-before', 'img', 'content', 'media', '0px');
-  @include prop('vspace-after', 'img', 'content', 'media', '0px');
+  @include prop('vspace-before', 'img', 'layout', 'media', '0px');
+  @include prop('vspace-after', 'img', 'layout', 'media', '0px');
 }
 
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
 
-  @include prop('vspace-before', 'img-embed', 'content', 'media', '0px');
-  @include prop('vspace-after', 'img-embed', 'content', 'media', '0px');
+  @include prop('vspace-before', 'img-embed', 'layout', 'media', '0px');
+  @include prop('vspace-after', 'img-embed', 'layout', 'media', '0px');
 }
 
 img {
