@@ -27,8 +27,8 @@
   #{$selectors} {
     @extend .content--class--text;
 
-    @include prop('vspace-before', $name, 'layout', 'text', $value);
-    @include prop('vspace-after', $name, 'layout', 'text', $value);
+    @include prop('vspace-before', $name, 'layout', 'text', map.get($value, 'vspace-before'));
+    @include prop('vspace-after', $name, 'layout', 'text', map.get($value, 'vspace-after'));
 
     @include prop('font-family', $name, 'typo', 'text', 'initial');
     @include prop('font-size', $name, 'typo', 'text', 'inital');
@@ -439,16 +439,46 @@ img {
  * in the system.
  */
 %typo {
-  @include typo('headline-1', '.headline-1, h1, h2', '0.67em');
-  @include typo('headline-2', '.headline-2, h3', '0.75em');
-  @include typo('headline-3', '.headline-3, h4', '0.5em');
-  @include typo('headline-4', '.headline-4, h5, h6', '0.4em');
-  @include typo('body', '.body, .body, p', '0.4em');
-  @include typo('body-2', '.body, .body-2', '0.4em');
-  @include typo('ingress', '.ingress', '0.4em');
-  @include typo('summary', '.summary', '0.4em');
-  @include typo('menu', '.menu', '0.4em');
-  @include typo('caption', '.caption', '0.4em');
+  @include typo('headline-1', '.headline-1, h1, h2', (
+    vspace-before: 0.67em,
+    vspace-after: 0.67em
+  ));
+  @include typo('headline-2', '.headline-2, h3', (
+    vspace-before: 0.75em,
+    vspace-after: 0.75em
+  ));
+  @include typo('headline-3', '.headline-3, h4', (
+    vspace-before: 0.5em,
+    vspace-after: 0.5em
+  ));
+  @include typo('headline-4', '.headline-4, h5, h6', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('body', '.body, .body, p',(
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('body-2', '.body, .body-2', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('ingress', '.ingress', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('summary', '.summary', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('menu', '.menu', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
+  @include typo('caption', '.caption', (
+    vspace-before: 0.4em,
+    vspace-after: 0.4em
+  ));
 }
 
 .root {
