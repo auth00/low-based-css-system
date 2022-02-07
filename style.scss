@@ -2,6 +2,8 @@
 @use 'sass:meta';
 @use 'sass:list';
 @use 'sass:string';
+@use 'sass:math';
+
 
 /// Default order used to determine which string comes first
 /// @type List
@@ -25,9 +27,9 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
   $a: string.to-lower-case($a + unquote(''));
   $b: string.to-lower-case($b + unquote(''));
 
-  @for $i from 1 through min(string.str-length($a), string.str-length($b)) {
-    $char-a: string.str-slice($a, $i, $i);
-    $char-b: string.str-slice($b, $i, $i);
+  @for $i from 1 through min(string.length($a), string.length($b)) {
+    $char-a: string.slice($a, $i, $i);
+    $char-b: string.slice($b, $i, $i);
 
     @if $char-a and
       $char-b and
@@ -54,15 +56,14 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
   $large: ();
 
   @if list.length($list) > 1 {
-    //$seed: list.nth($list, ceil(length($list) / 2));
-    $seed: 12;
+    $seed: list.nth($list, ceil(math.div(length($list), 2)));
     @each $item in $list {
       @if $item == $seed {
-        $equal: map.merge($equal, $item, list.separator($list));
+        $equal: list.append($equal, $item, list.separator($list));
       } @else if _str-compare($item, $seed, $order) {
-        $less: map.merge($less, $item, list.separator($list));
+        $less: list.append($less, $item, list.separator($list));
       } @else if not _str-compare($item, $seed, $order) {
-        $large: map.merge($large, $item, list.separator($list));
+        $large: list.append($large, $item, list.separator($list));
       }
     }
 
