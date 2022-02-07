@@ -90,6 +90,9 @@
   }
 }
 
+/*
+ * Resets all custom properties in a given realm
+ */
 @mixin realm-reset($realm) {
   @each $custom_prop,
     $custom_prop_value in map-sort(map.get($custom-props, $realm))
@@ -329,7 +332,7 @@
  *
  *
  */
-%group {
+.group {
   @extend %content--class--color-scheme;
 
   > div {
@@ -364,7 +367,7 @@
 /*
  * TODO: Define a
  */
-%columns {
+.columns {
   @extend %content--class--widget;
   @extend %content--defaults--air--normal;
 
