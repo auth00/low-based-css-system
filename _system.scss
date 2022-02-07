@@ -162,6 +162,10 @@
   color: var(--_text-color);
 }
 
+.content {
+  @extend %content;
+}
+
 .content--align--center {
   --content--text-align: center;
 }
@@ -396,7 +400,7 @@
  * This should probably support <picture>
  * and other image related features.
  */
-%img {
+.img {
   @extend %content--class--media;
   @extend %content--defaults--air--none;
 
@@ -410,7 +414,7 @@
     background-image: url(https://picsum.photos/400/30);
   }
 }
-%img-embed {
+.img-embed {
   @extend %content--class--media;
   @extend %content--defaults--air--normal;
 
