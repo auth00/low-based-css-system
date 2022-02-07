@@ -35,7 +35,7 @@
  * Here we add all levels that are available
  * in the system.
  */
-%typesetting {
+@mixin typesettings {
   @include typesetting(
     'headline-1',
     '.headline-1, h1, h2',
@@ -143,8 +143,11 @@
 }
 
 .root {
-  @extend %typesetting;
-  @extend %content--class--color-scheme;
+  @include typesettings;
+}
+
+.root {
+ // @extend %content--class--color-scheme;
   @extend %theme--site;
 
   @include theme-props;
@@ -153,6 +156,11 @@
 .group {
   @extend %group;
 }
+/*
+.columns {
+  @extend %columns;
+}
 
 @import './card.scss';
 @import './compact-card.scss';
+*/

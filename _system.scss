@@ -1,5 +1,3 @@
-@use 'vars';
-
 @use 'sass:map';
 
 @import './tools.scss';
@@ -93,7 +91,7 @@ $custom-props: () !global;
   }
 }
 
-@mixin realm-reset($realm, $custom-props) {
+@mixin realm-reset($realm) {
   @each $custom_prop,
     $custom_prop_value in map-sort(map.get($custom-props, $realm))
   {
@@ -134,14 +132,7 @@ $custom-props: () !global;
 %content {
   --_content--width: var(--content--width, var(--content--width--default));
   --_content--air: var(--content--air, var(--content--air--default));
-  --_vspace-before: var(
-    --content--vspace-before,
-    var(--content--vspace-before--default)
-  );
-  --_vspace-after: var(
-    --content--vspace-after,
-    var(--content--vspace-after--default)
-  );
+
   --_text-align: var(
     --content--text-align,
     var(--content--text-align--default)
@@ -316,7 +307,7 @@ $custom-props: () !global;
   > div {
     display: block flow-root; // Needed to make sure margins are filled
 
-    @include realm-reset(color-scheme, $custom-props);
+    @include realm-reset(color-scheme);
 
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,
