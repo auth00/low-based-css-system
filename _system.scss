@@ -2,18 +2,14 @@
 
 @import './tools.scss';
 
-$custom-props: () !global;
-
-$realms: (color-scheme, space, typesetting) !global;
-
-@each $realm in $realms {
-  $custom-props: map.set($custom-props, $realm, ()) !global;
-}
-
 /*
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $realm, $value, $name: '', $class: '') {
+  $custom-props: $custom-props !global;
+  @if not map.has-key($custom-props, $realm) {
+    $custom-props: map.set($custom-props, $realm, ()) !global;
+  }
   @if $class != '' {
     $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
     $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
@@ -305,12 +301,12 @@ $realms: (color-scheme, space, typesetting) !global;
 
   @include prop(background-color, color-scheme, revert);
 
-  background-color: var(--_background-color);
+  @include realm-reset(color-scheme);
 
   > div {
-    display: block flow-root; // Needed to make sure margins are filled
+    background-color: var(--_background-color);
 
-    @include realm-reset(color-scheme);
+    display: block flow-root; // Needed to make sure margins are filled
 
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,

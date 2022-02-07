@@ -4,6 +4,8 @@
 @use 'sass:string';
 @use 'sass:math';
 
+$custom-props: () !default;
+
 /// Default order used to determine which string comes first
 /// @type List
 $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']'
