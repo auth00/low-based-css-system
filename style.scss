@@ -27,13 +27,13 @@
   #{$selectors} {
     @extend .content--class--text;
 
-    @include prop('vspace-before', $name, 'content', 'text', $value);
-    @include prop('vspace-after', $name, 'content', 'text', $value);
+    @include prop('vspace-before', $name, 'layout', 'text', $value);
+    @include prop('vspace-after', $name, 'layout', 'text', $value);
 
-    @include prop('font-family', $name, 'content', 'text', 'Arial');
-    @include prop('font-size', $name, 'content', 'text', '16px');
-    @include prop('font-weight', 'content', $name, 'text', 'inherit');
-    @include prop('line-height', 'content', $name, 'text', 'inherit');
+    @include prop('font-family', 'typo', $name, 'text', 'initial');
+    @include prop('font-size', 'typo', $name, 'text', 'inital');
+    @include prop('font-weight', 'typo', $name, 'text', 'initial');
+    @include prop('line-height', 'typo', $name, 'text', 'inital');
   }
 }
 
@@ -175,6 +175,9 @@ body {
   margin-bottom: var(--_vspace-after);
   margin-inline: auto;
   padding: 0 var(--_content--air);
+  font-family: var(--_font-family);
+  font-size: var(--_font-size);
+  line-height: var(--_line-height);
 }
 
 /*
