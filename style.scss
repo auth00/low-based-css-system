@@ -10,7 +10,7 @@
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $name, $realm, $class, $value) {
-  $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
+  $custom_prop: '--#{$class}--#{$realm}--#{$name}--#{$prop}';
   --_#{$prop}: var(#{$custom_prop}, var(--#{$realm}--#{$class}--#{$prop}));
   $custom-props: map.merge(
     $custom-props,
@@ -461,6 +461,7 @@ img {
       vspace-before: 0.67em,
       vspace-after: 0.67em,
       font-size: 2em,
+      font-weight: bold,
     )
   );
   @include typo(
@@ -470,6 +471,7 @@ img {
       vspace-before: 0.75em,
       vspace-after: 0.75em,
       font-size: 2em,
+      font-weight: bold,
     )
   );
   @include typo(
@@ -479,6 +481,7 @@ img {
       vspace-before: 0.5em,
       vspace-after: 0.5em,
       font-size: 2em,
+      font-weight: bold,
     )
   );
   @include typo(
@@ -488,6 +491,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1.33em,
+      font-weight: bold,
     )
   );
   @include typo(
