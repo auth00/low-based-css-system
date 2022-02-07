@@ -4,6 +4,18 @@
 $custom-props: ();
 
 /*
+ * Sort a map by key
+ */
+@function map-sort($map) {
+  $keys: list-sort(map-keys($map));
+  $sortedMap: ();
+  @each $key in $keys {
+    $sortedMap: map-merge($sortedMap, ($key: map-get($map, $key)));
+  }
+  @return $sortedMap;
+}
+
+/*
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $name, $realm, $class, $value) {
@@ -456,7 +468,7 @@ img {
  * used in the css system.
  */
 %theme {
-  @each $custom_prop, $custom_prop_value in $custom-props {
+  @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
     #{$custom_prop}: #{$custom_prop_value};
   }
 }
