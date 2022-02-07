@@ -314,7 +314,7 @@ $custom-props: () !global;
   > div {
     display: block flow-root; // Needed to make sure margins are filled
 
-    //@include realm-reset('color-scheme');
+    @include realm-reset(color-scheme);
 
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,
