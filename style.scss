@@ -10,7 +10,7 @@
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $name, $realm, $class, $value) {
-  $custom_prop: '--#{$class}--#{$realm}--#{$name}--#{$prop}';
+  $custom_prop: '--#{$class}--#{$name}--#{$realm}--#{$prop}';
   --_#{$prop}: var(#{$custom_prop}, var(--#{$realm}--#{$class}--#{$prop}));
   $custom-props: map.merge(
     $custom-props,
