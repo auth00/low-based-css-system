@@ -1,5 +1,5 @@
 .compact-card {
-  @extend .content--class--widget;
+  @extend %content--class--widget;
 
   min-width: var(--content--compact-card--min-width, 40px);
   max-width: var(--content--compact-card--max-width, 200px);

@@ -62,7 +62,7 @@ $custom-props: () !global;
  */
 @mixin typesetting($name, $selectors, $value) {
   #{$selectors} {
-    @extend .content--class--text;
+    @extend %content--class--text;
 
     @each $realm,
       $props
@@ -93,7 +93,7 @@ $custom-props: () !global;
   }
 }
 
-@mixin realm-reset($realm) {
+@mixin realm-reset($realm, $custom-props) {
   @each $custom_prop,
     $custom_prop_value in map-sort(map.get($custom-props, $realm))
   {
@@ -131,7 +131,7 @@ $custom-props: () !global;
  * is also extended by other tags and classes like 
  * p, img and .preamble to make them become content.
  */
-.content {
+%content {
   --_content--width: var(--content--width, var(--content--width--default));
   --_content--air: var(--content--air, var(--content--air--default));
   --_vspace-before: var(
@@ -148,7 +148,7 @@ $custom-props: () !global;
   );
 }
 
-.content {
+%content {
   position: relative;
   //width: calc(100% - var(--_content--air)*2);
   max-width: \min(
@@ -266,8 +266,8 @@ $custom-props: () !global;
  *  * air:on
  *  * width:normal
  */
-.content--class--text {
-  @extend .content;
+%content--class--text {
+  @extend %content;
   @extend %content--defaults--air--normal;
   @extend %content--defaults--width--normal;
 }
@@ -278,8 +278,8 @@ $custom-props: () !global;
  *  * air:off
  *  * width:normal
  */
-.content--class--media {
-  @extend .content;
+%content--class--media {
+  @extend %content;
   @extend %content--defaults--air--none;
   @extend %content--defaults--width--normal;
 }
@@ -291,8 +291,8 @@ $custom-props: () !global;
  *  * air:off
  *  * width:full
  */
-.content--class--widget {
-  @extend .content;
+%content--class--widget {
+  @extend %content;
   @extend %content--defaults--air--none;
   @extend %content--defaults--width--full;
 
@@ -306,8 +306,8 @@ $custom-props: () !global;
  * capable of altering the current color-scheme
  * All color-scheme classes are also widgets
  */
-.content--class--color-scheme {
-  @extend .content--class--widget;
+%content--class--color-scheme {
+  @extend %content--class--widget;
 
   @include prop(background-color, color-scheme, revert);
 
@@ -316,8 +316,7 @@ $custom-props: () !global;
   > div {
     display: block flow-root; // Needed to make sure margins are filled
 
-    $custom-props: () !global;
-    @include realm-reset(color-scheme);
+    @include realm-reset(color-scheme, $custom-props);
 
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,
@@ -339,8 +338,8 @@ $custom-props: () !global;
  *
  *
  */
-.group {
-  @extend .content--class--color-scheme;
+%group {
+  @extend %content--class--color-scheme;
 
   > div {
     overflow-x: auto;
@@ -374,8 +373,8 @@ $custom-props: () !global;
 /*
  * TODO: Define a
  */
-.columns {
-  @extend .content--class--widget;
+%columns {
+  @extend %content--class--widget;
   @extend %content--defaults--air--normal;
 
   //grid-template-columns: repeat(3, 1fr);
@@ -403,21 +402,13 @@ $custom-props: () !global;
  * This should probably support <picture>
  * and other image related features.
  */
-.img {
-  @extend .content--class--media;
+%img {
+  @extend %content--class--media;
   @extend %content--defaults--air--none;
 
   @include prop(vspace-before, space, 0px, img, media);
   @include prop(vspace-after, space, 0px, img, media);
-}
-.img-embed {
-  @extend .content--class--media;
-  @extend %content--defaults--air--normal;
 
-  @include prop(vspace-before, space, 0px, img-embed, media);
-  @include prop(vspace-after, space, 0px, img-embed, media);
-}
-.img {
   > div {
     background-size: cover;
     height: 90px;
@@ -425,7 +416,13 @@ $custom-props: () !global;
     background-image: url(https://picsum.photos/400/30);
   }
 }
-.img-embed {
+%img-embed {
+  @extend %content--class--media;
+  @extend %content--defaults--air--normal;
+
+  @include prop(vspace-before, space, 0px, img-embed, media);
+  @include prop(vspace-after, space, 0px, img-embed, media);
+
   > div {
     background-size: cover;
     height: 90px;

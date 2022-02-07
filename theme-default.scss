@@ -146,10 +146,8 @@
 }
 
 .root {
-  @extend .content--class--color-scheme;
+  @extend %content--class--color-scheme;
   @extend %theme--site;
   @extend %typesetting;
-  //@include theme-props;
-
-  @include realm-reset(color-scheme);
+  @include theme-props;
 }
