@@ -1,4 +1,4 @@
-//import './theme-default.scss';
+import './theme-default.scss';
 import './style.css';
 import './card.scss';
 
