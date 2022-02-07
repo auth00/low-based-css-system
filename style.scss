@@ -38,7 +38,7 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
     }
   }
 
-  @return string.str-length($a) < string.str-length($b);
+  @return string.length($a) < string.length($b);
 }
 
 /// Quick sort
@@ -54,7 +54,8 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
   $large: ();
 
   @if list.length($list) > 1 {
-    $seed: list.nth($list, ceil(length($list) / 2));
+    //$seed: list.nth($list, ceil(length($list) / 2));
+    $seed: 12;
     @each $item in $list {
       @if $item == $seed {
         $equal: map.merge($equal, $item, list.separator($list));
@@ -64,6 +65,8 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
         $large: map.merge($large, $item, list.separator($list));
       }
     }
+
+    @return $list;
 
     @return join(
       join(quick-sort($less, $order), $equal),
@@ -81,8 +84,9 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
 /// @requires function list-sort
 /// @author Jake Wilson <jake.e.wilson@gmail.com>
 @function map-sort($map) {
-  $keys: quick-sort(map-keys($map));
+  $keys: quick-sort(map.keys($map));
   $sortedMap: ();
+
   @each $key in $keys {
     $sortedMap: map.merge(
       $sortedMap,
