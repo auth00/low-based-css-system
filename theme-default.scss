@@ -146,6 +146,7 @@
 }
 
 .root {
+  @extend .content--class--color-scheme;
   @extend %theme--site;
   @extend %typesetting;
   @include theme-props;

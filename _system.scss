@@ -23,7 +23,7 @@ $custom-props: () !global;
       map.merge(
         map.get($custom-props, $realm),
         (
-          $custom_prop_fallback: 'intial',
+          $custom_prop_fallback: 'revert',
         )
       )
     ) !global;
@@ -307,16 +307,18 @@ $custom-props: () !global;
 .content--class--color-scheme {
   @extend .content--class--widget;
 
-  @include prop(background-color, color-scheme, initial);
+  @include prop(background-color, color-scheme, revert);
 
   background-color: var(--_background-color);
 
   > div {
     display: block flow-root; // Needed to make sure margins are filled
-    @include realm-reset('color-scheme');
+
+    //@include realm-reset('color-scheme');
+
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,
-      initial
+      revert
     );
   }
 }

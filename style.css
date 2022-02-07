@@ -16,6 +16,11 @@
   }
 }
 
+/*
+ * brand-color-1
+ * brand-color-2
+ */
+
 .color-r {
   --color-scheme--text-color: var(--color--text);
   --color-scheme--text--body--text-color: red;
@@ -34,3 +39,5 @@
   --color-scheme--background-color: var(--color--background--blue);
   --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
 }
+
+
