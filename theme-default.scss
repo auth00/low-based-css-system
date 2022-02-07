@@ -14,6 +14,7 @@
   --content--width--normal: 500px;
   --content--width--narrow: 400px;
   --content--width--wide: 800px;
+
 }
 
 /*
@@ -35,7 +36,7 @@
  * Here we add all levels that are available
  * in the system.
  */
-.root {
+%typesetting {
   @include typesetting(
     'headline-1',
     '.headline-1, h1, h2',
@@ -143,20 +144,13 @@
 }
 
 .root {
+  @extend %typesetting;
   @extend %content--class--color-scheme;
   @extend %theme--site;
 
   @include theme-props;
 }
-/*
-.group {
-  @extend %group;
-}
-
-.columns {
-  @extend %columns;
-}
-*/
 
 @import './card.scss';
 @import './compact-card.scss';
+@import './button.scss';

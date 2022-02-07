@@ -1,0 +1,5 @@
+.button {
+  @extend %content--class--color-scheme;
+
+  @include prop(background-inverted, color-scheme, red);
+}

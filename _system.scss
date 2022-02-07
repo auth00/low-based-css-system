@@ -121,7 +121,7 @@
 }
 
 .theme--vspace--1 {
-  --_vspace--header: 0px;
+  --space--group--vspace--header: 100px;
 }
 
 /*
@@ -307,15 +307,14 @@
   @extend %content--class--widget;
 
   @include prop('background', color-scheme, revert);
-  @include prop('background-contrast', color-scheme, revert);
+  @include prop('background-contrast', color-scheme, rgb(0, 0, 0, 0.2));
 
   @include realm-reset(color-scheme);
 
+  display: block flow-root; // Needed to make sure margins are filled
+  background: var(--_background);
+
   > div {
-    background: var(--_background);
-
-    display: block flow-root; // Needed to make sure margins are filled
-
     --color-scheme--background: var(
       --color-scheme--background-contrast,
       revert
@@ -339,13 +338,13 @@
 .group {
   @extend %content--class--color-scheme;
 
+  @include prop(vspace--header, space, 0px, default, group);
+  @include prop(vspace--footer, space, 0px, default, group);
+
   > div {
     overflow-x: auto;
-    margin-top: var(--_vspace--header, var(--_group--vspace--header--default));
-    margin-bottom: var(
-      --_vspace--footer,
-      var(--_group--vspace--footer--default)
-    );
+    margin-top: var(--_vspace--header);
+    margin-bottom: var(--_vspace--footer);
 
     > :first-child {
       .group--header {

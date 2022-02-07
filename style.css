@@ -25,19 +25,14 @@
   --color-scheme--text-color: var(--color--text);
   --color-scheme--text--body--text-color: red;
   --color-scheme--background: var(--color--background--red);
-  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
 
 .color-g {
   --color-scheme--text-color: var(--color--text);
   --color-scheme--background: var(--color--background--green);
-  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
 
 .color-b {
   --color-scheme--text-color: var(--color--text);
   --color-scheme--background: var(--color--background--blue);
-  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
-
-
