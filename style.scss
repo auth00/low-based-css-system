@@ -27,13 +27,28 @@
   #{$selectors} {
     @extend .content--class--text;
 
-    @include prop('vspace-before', $name, 'layout', 'text', map.get($value, 'vspace-before'));
-    @include prop('vspace-after', $name, 'layout', 'text', map.get($value, 'vspace-after'));
-
-    @include prop('font-family', $name, 'typo', 'text', 'initial');
-    @include prop('font-size', $name, 'typo', 'text', 'inital');
-    @include prop('font-weight', $name, 'typo', 'text', 'initial');
-    @include prop('line-height', $name, 'typo', 'text', 'inital');
+    @each $realm,
+      $props
+        in (
+          layout: (),
+          typo: (
+            font-size,
+            font-family,
+            font-weight,
+            line-height,
+            vspace-before,
+            vspace-after,
+          )
+        )
+    {
+      @each $prop in $props {
+        @if map.has-key($value, $prop) {
+          @include prop($prop, $name, $realm, 'text', map.get($value, $prop));
+        } @else {
+          @include prop($prop, $name, $realm, 'text', inital);
+        }
+      }
+    }
   }
 }
 
@@ -439,46 +454,96 @@ img {
  * in the system.
  */
 %typo {
-  @include typo('headline-1', '.headline-1, h1, h2', (
-    vspace-before: 0.67em,
-    vspace-after: 0.67em
-  ));
-  @include typo('headline-2', '.headline-2, h3', (
-    vspace-before: 0.75em,
-    vspace-after: 0.75em
-  ));
-  @include typo('headline-3', '.headline-3, h4', (
-    vspace-before: 0.5em,
-    vspace-after: 0.5em
-  ));
-  @include typo('headline-4', '.headline-4, h5, h6', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('body', '.body, .body, p',(
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('body-2', '.body, .body-2', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('ingress', '.ingress', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('summary', '.summary', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('menu', '.menu', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
-  @include typo('caption', '.caption', (
-    vspace-before: 0.4em,
-    vspace-after: 0.4em
-  ));
+  @include typo(
+    'headline-1',
+    '.headline-1, h1, h2',
+    (
+      vspace-before: 0.67em,
+      vspace-after: 0.67em,
+      font-size: 2em,
+    )
+  );
+  @include typo(
+    'headline-2',
+    '.headline-2, h3',
+    (
+      vspace-before: 0.75em,
+      vspace-after: 0.75em,
+      font-size: 2em,
+    )
+  );
+  @include typo(
+    'headline-3',
+    '.headline-3, h4',
+    (
+      vspace-before: 0.5em,
+      vspace-after: 0.5em,
+      font-size: 2em,
+    )
+  );
+  @include typo(
+    'headline-4',
+    '.headline-4, h5, h6',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1.33em,
+    )
+  );
+  @include typo(
+    'body',
+    '.body, .body, p',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
+  @include typo(
+    'body-2',
+    '.body, .body-2',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
+  @include typo(
+    'ingress',
+    '.ingress',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
+  @include typo(
+    'summary',
+    '.summary',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
+  @include typo(
+    'menu',
+    '.menu',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
+  @include typo(
+    'caption',
+    '.caption',
+    (
+      vspace-before: 0.4em,
+      vspace-after: 0.4em,
+      font-size: 1em,
+    )
+  );
 }
 
 .root {
