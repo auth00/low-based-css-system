@@ -30,7 +30,7 @@
 /*
  * Mixin used to create typografy sets
  */
-@mixin typo($name, $selectors, $value) {
+@mixin typesetting($name, $selectors, $value) {
   #{$selectors} {
     @extend .content--class--text;
 
@@ -41,7 +41,7 @@
             vspace-before,
             vspace-after,
           ),
-          typo: (
+          typesetting: (
             font-size,
             font-family,
             font-weight,
@@ -467,8 +467,8 @@ img {
  * Here we add all levels that are available
  * in the system.
  */
-%typo {
-  @include typo(
+%typesetting {
+  @include typesetting(
     'headline-1',
     '.headline-1, h1, h2',
     (
@@ -478,7 +478,7 @@ img {
       font-weight: bold,
     )
   );
-  @include typo(
+  @include typesetting(
     'headline-2',
     '.headline-2, h3',
     (
@@ -488,7 +488,7 @@ img {
       font-weight: bold,
     )
   );
-  @include typo(
+  @include typesetting(
     'headline-3',
     '.headline-3, h4',
     (
@@ -498,7 +498,7 @@ img {
       font-weight: bold,
     )
   );
-  @include typo(
+  @include typesetting(
     'headline-4',
     '.headline-4, h5, h6',
     (
@@ -508,7 +508,7 @@ img {
       font-weight: bold,
     )
   );
-  @include typo(
+  @include typesetting(
     'body',
     '.body, .body, p',
     (
@@ -517,7 +517,7 @@ img {
       font-size: 1em,
     )
   );
-  @include typo(
+  @include typesetting(
     'body-2',
     '.body, .body-2',
     (
@@ -526,7 +526,7 @@ img {
       font-size: 1em,
     )
   );
-  @include typo(
+  @include typesetting(
     'ingress',
     '.ingress',
     (
@@ -535,7 +535,7 @@ img {
       font-size: 1em,
     )
   );
-  @include typo(
+  @include typesetting(
     'summary',
     '.summary',
     (
@@ -544,7 +544,7 @@ img {
       font-size: 1em,
     )
   );
-  @include typo(
+  @include typesetting(
     'menu',
     '.menu',
     (
@@ -553,7 +553,7 @@ img {
       font-size: 1em,
     )
   );
-  @include typo(
+  @include typesetting(
     'caption',
     '.caption',
     (
@@ -567,7 +567,7 @@ img {
 .root {
   @extend %theme;
   @extend %theme--site;
-  @extend %typo;
+  @extend %typesetting;
 }
 
 /*
