@@ -10,7 +10,7 @@
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $name, $realm, $class, $value) {
-  $custom_prop: '--#{$class}--#{$name}--#{$realm}--#{$prop}';
+  $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
   $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
   --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, #{$value}));
   $custom-props: map.merge(
@@ -37,7 +37,7 @@
     @each $realm,
       $props
         in (
-          layout: (
+          space: (
             vspace-before,
             vspace-after,
           ),
@@ -182,6 +182,7 @@ body {
     --content--vspace-after,
     var(--content--vspace-after--default)
   );
+  --_text-align: var(--content--text-align, var(--content--text-align--default, left));
 }
 
 .content {
@@ -201,6 +202,11 @@ body {
   font-family: var(--_font-family);
   font-size: var(--_font-size);
   line-height: var(--_line-height);
+  text-align: var(--_text-align);
+}
+
+.content--align--center {
+  --content--text-align: center;
 }
 
 /*
@@ -356,8 +362,8 @@ body {
 .card {
   @extend .content--class--widget;
 
-  @include prop('vspace-before', 'card', 'layout', 'widget', '0px');
-  @include prop('vspace-after', 'card', 'layout', 'widget', '0px');
+  @include prop('vspace-before', 'card', 'space', 'widget', '0px');
+  @include prop('vspace-after', 'card', 'space', 'widget', '0px');
 
   min-width: var(--content--card--min-width, 120px);
   max-width: var(--content--card--max-width, 400px);
@@ -399,16 +405,16 @@ body {
   @extend .content--class--media;
   @extend %content--defaults--air--none;
 
-  @include prop('vspace-before', 'img', 'layout', 'media', '0px');
-  @include prop('vspace-after', 'img', 'layout', 'media', '0px');
+  @include prop('vspace-before', 'img', 'space', 'media', '0px');
+  @include prop('vspace-after', 'img', 'space', 'media', '0px');
 }
 
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
 
-  @include prop('vspace-before', 'img-embed', 'layout', 'media', '0px');
-  @include prop('vspace-after', 'img-embed', 'layout', 'media', '0px');
+  @include prop('vspace-before', 'img-embed', 'space', 'media', '0px');
+  @include prop('vspace-after', 'img-embed', 'space', 'media', '0px');
 }
 
 img {
