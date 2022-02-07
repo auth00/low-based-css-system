@@ -1,6 +1,3 @@
-@import './reset.scss';
-@import './system.scss';
-
 /*
  * The theme extends the system and defines
  * widths
@@ -8,6 +5,12 @@
  * color-schemes
  * typesetting
  */
+
+@import './reset.scss';
+@import './system.scss';
+
+@import './card.scss';
+@import './compact-card.scss';
 
 // This is our main theme (overrides from %theme)
 %theme--site {
@@ -140,15 +143,6 @@
       text-color: var(--color-scheme--text-color),
     )
   );
-}
-
-
-
-.compact-card {
-  @extend .content--class--widget;
-
-  min-width: var(--content--compact-card--min-width, 40px);
-  max-width: var(--content--compact-card--max-width, 200px);
 }
 
 .root {

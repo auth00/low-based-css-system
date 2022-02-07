@@ -2,6 +2,8 @@
 
 @import './tools.scss';
 
+$custom-props: () !global;
+
 /*
  * Mixin used to create custom property with content class fallback
  */
@@ -344,6 +346,9 @@
 }
 
 /*
+ * TODO: This needs to be worked more on
+ */
+/*
  * This is some sort of generic image.
  * This should probably support <picture>
  * and other image related features.
@@ -355,7 +360,6 @@
   @include prop('vspace-before', 'space', '0px', 'img', 'media');
   @include prop('vspace-after', 'space', '0px', 'img', 'media');
 }
-
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
@@ -363,30 +367,6 @@
   @include prop('vspace-before', 'space', '0px', 'img-embed', 'media');
   @include prop('vspace-after', 'space', '0px', 'img-embed', 'media');
 }
-
-img {
-  display: block;
-}
-
-/*
- * The preamble text mode will most certainly be needed
- */
-//.preamble {
-//  --_vspace-before: var(--text--preamble--space-before, ???);
-//  --_vspace-after: var(--text--preamble--space-after, ???);
-//}
-
-blockquote,
-ul,
-fieldset,
-form,
-ol,
-dl,
-dir,
-menu {
-  @extend .content--class--text;
-}
-
 .img {
   > div {
     background-size: cover;
@@ -395,7 +375,6 @@ menu {
     background-image: url(https://picsum.photos/400/30);
   }
 }
-
 .img-embed {
   > div {
     background-size: cover;

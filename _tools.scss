@@ -95,5 +95,4 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
   }
   @return $sortedMap;
 }
-
-$custom-props: ();
+$custom-props: () !global;
