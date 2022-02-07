@@ -30,14 +30,15 @@
     @each $realm,
       $props
         in (
-          layout: (),
+          layout: (
+            vspace-before,
+            vspace-after,
+          ),
           typo: (
             font-size,
             font-family,
             font-weight,
             line-height,
-            vspace-before,
-            vspace-after,
           )
         )
     {
