@@ -1,30 +1,74 @@
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:list';
+@use 'sass:string';
+
+/// Default order used to determine which string comes first
+/// @type List
+$default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']'
+  '^' '_' '{' '|' '}' '~''0' '1' '2' '3' '4' '5' '6' '7' '8' '9' 'a' 'b' 'c' 'd'
+  'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w'
+  'x' 'y' 'z' !default;
+
+/// Compares two string to determine which comes first
+/// @access private
+/// @param {String} $a - first string
+/// @parem {String} $b - second string
+/// @param {List} $order - order to deal with
+/// @return {Bool}
+
+@function _str-compare($a, $b, $order) {
+  @if meta.type-of($a) == 'number' and meta.type-of($b) == 'number' {
+    @return $a < $b;
+  }
+
+  $a: string.to-lower-case($a + unquote(''));
+  $b: string.to-lower-case($b + unquote(''));
+
+  @for $i from 1 through min(string.str-length($a), string.str-length($b)) {
+    $char-a: string.str-slice($a, $i, $i);
+    $char-b: string.str-slice($b, $i, $i);
+
+    @if $char-a and
+      $char-b and
+      list.index($order, $char-a) !=
+      list.index($order, $char-b)
+    {
+      @return list.index($order, $char-a) < list.index($order, $char-b);
+    }
+  }
+
+  @return string.str-length($a) < string.str-length($b);
+}
 
 /// Quick sort
-/// @author Sam Richards
+/// @author Kitty Giraudel
 /// @param {List} $list - list to sort
+/// @param {List} $order [$default-order] - order to use for sorting
 /// @return {List}
-@function quick-sort($list) {
-  $less:  ();
+/// @require {function} _str-compare
+/// @require $default-order
+@function quick-sort($list, $order: $default-order) {
+  $less: ();
   $equal: ();
   $large: ();
 
-  @if length($list) > 1 {
-    $seed: nth($list, ceil(length($list) / 2));
-
+  @if list.length($list) > 1 {
+    $seed: list.nth($list, ceil(length($list) / 2));
     @each $item in $list {
-      @if ($item == $seed) {
-        $equal: append($equal, $item);
-      } @else if ($item < $seed) {
-        $less: append($less, $item);
-      } @else if ($item > $SEED) {
-        $large: append($large, $item);
+      @if $item == $seed {
+        $equal: map.merge($equal, $item, list.separator($list));
+      } @else if _str-compare($item, $seed, $order) {
+        $less: map.merge($less, $item, list.separator($list));
+      } @else if not _str-compare($item, $seed, $order) {
+        $large: map.merge($large, $item, list.separator($list));
       }
     }
 
-    @return join(join(quick-sort($less, $order), $equal), quick-sort($large, $order));
+    @return join(
+      join(quick-sort($less, $order), $equal),
+      quick-sort($large, $order)
+    );
   }
 
   @return $list;
