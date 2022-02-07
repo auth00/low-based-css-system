@@ -9,9 +9,6 @@
 @import './reset.scss';
 @import './system.scss';
 
-@import './card.scss';
-@import './compact-card.scss';
-
 // This is our main theme (overrides from %theme)
 %theme--site {
   --content--width--normal: 500px;
@@ -146,8 +143,16 @@
 }
 
 .root {
+  @extend %typesetting;
   @extend %content--class--color-scheme;
   @extend %theme--site;
-  @extend %typesetting;
+
   @include theme-props;
 }
+
+.group {
+  @extend %group;
+}
+
+@import './card.scss';
+@import './compact-card.scss';
