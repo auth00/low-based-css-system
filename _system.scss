@@ -4,13 +4,16 @@
 
 $custom-props: () !global;
 
+$realms: (color-scheme, space, typesetting) !global;
+
+@each $realm in $realms {
+  $custom-props: map.set($custom-props, $realm, ()) !global;
+}
+
 /*
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $realm, $value, $name: '', $class: '') {
-  @if not map.has-key($custom-props, $realm) {
-    $custom-props: map.set($custom-props, $realm, ()) !global;
-  }
   @if $class != '' {
     $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
     $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';

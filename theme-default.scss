@@ -9,6 +9,8 @@
 @import './reset.scss';
 @import './system.scss';
 
+$qweqwe: () !global;
+
 // This is our main theme (overrides from %theme)
 %theme--site {
   --content--width--normal: 500px;
@@ -35,7 +37,7 @@
  * Here we add all levels that are available
  * in the system.
  */
-@mixin typesettings {
+.root {
   @include typesetting(
     'headline-1',
     '.headline-1, h1, h2',
@@ -143,24 +145,19 @@
 }
 
 .root {
-  @include typesettings;
-}
+  //@extend %content--class--color-scheme;
+  //@extend %theme--site;
 
-.root {
- // @extend %content--class--color-scheme;
-  @extend %theme--site;
-
-  @include theme-props;
+  //@include theme-props;
 }
 
 .group {
-  @extend %group;
-}
-/*
-.columns {
-  @extend %columns;
+  //@extend %group;
 }
 
-@import './card.scss';
-@import './compact-card.scss';
-*/
+.columns {
+  //@extend %columns;
+}
+
+//@import './card.scss';
+//@import './compact-card.scss';
