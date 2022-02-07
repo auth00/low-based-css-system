@@ -11,7 +11,14 @@
  */
 @mixin prop($prop, $name, $realm, $class, $value) {
   $custom_prop: '--#{$class}--#{$name}--#{$realm}--#{$prop}';
-  --_#{$prop}: var(#{$custom_prop}, var(--#{$realm}--#{$class}--#{$prop}, #{$value}));
+  $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
+  --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, #{$value}));
+  $custom-props: map.merge(
+    $custom-props,
+    (
+      $custom_prop_fallback: 'intial',
+    )
+  ) !global;
   $custom-props: map.merge(
     $custom-props,
     (
@@ -563,7 +570,7 @@ img {
  */
 %theme {
   @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
-    --_#{$custom_prop}: #{$custom_prop_value};
+    #{$custom_prop}: #{$custom_prop_value};
   }
 }
 
