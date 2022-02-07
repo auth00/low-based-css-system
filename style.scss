@@ -3,12 +3,6 @@
 
 $custom-props: ();
 
-%theme-all {
-  @each $custom_prop, $custom_prop_value in $custom-props {
-    #{$custom_prop}: #{$custom_prop_value};
-  }
-}
-
 /*
  * Mixin used to create custom property with content class fallback
  */
@@ -45,6 +39,12 @@ $custom-props: ();
  * Then you can override the settings that should b changed.
  */
 %theme {
+  @each $custom_prop, $custom_prop_value in $custom-props {
+    #{$custom_prop}: #{$custom_prop_value};
+  }
+}
+/*
+%theme {
   --content--air--normal: 15px;
   --content--width--normal: 600px;
   --content--width--narrow: 500px;
@@ -75,6 +75,7 @@ $custom-props: ();
   --content--widget--card--vspace-before: 1em;
   --content--widget--card--vspace-after: 1em;
 }
+*/
 
 // This is our main theme (overrides from %theme)
 %theme--site {
