@@ -1,5 +1,4 @@
-import './reset.scss';
-import './system.scss';
+import './theme-basic.scss';
 import './style.css';
 
 /*
