@@ -1,20 +1,50 @@
 @use 'sass:map';
 @use 'sass:meta';
-@use "sass:list";
+@use 'sass:list';
 
-$custom-props: ();
+/// list-sort
+/// Sort a SASS list
+/// @param $list - A SASS list
+/// @returns A sorted SASS list
+/// @requires function list-remove
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function list-sort($list) {
+  $sortedlist: ();
+  @while length($list) > 0 {
+    $value: nth($list, 1);
+    @each $item in $list {
+      $value: $item;
+      /*@if $item < $value {
+        $value: $item;
+      }*/
+    }
+    $sortedlist: append($sortedlist, $value, 'space');
+    $list: list-remove($list, index($list, $value));
+  }
+  @return $sortedlist;
+}
 
-/*
- * Sort a map by key
- */
+/// map-sort
+/// Sort map by keys
+/// @param $map - A SASS map
+/// @returns A SASS map sorted by keys
+/// @requires function list-sort
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
 @function map-sort($map) {
   $keys: list-sort(map-keys($map));
   $sortedMap: ();
   @each $key in $keys {
-    $sortedMap: map-merge($sortedMap, ($key: map-get($map, $key)));
+    $sortedMap: map.merge(
+      $sortedMap,
+      (
+        $key: map.get($map, $key),
+      )
+    );
   }
   @return $sortedMap;
 }
+
+$custom-props: ();
 
 /*
  * Mixin used to create custom property with content class fallback
@@ -28,6 +58,7 @@ $custom-props: ();
       $custom_prop: $value,
     )
   ) !global;
+  $custom-props: map-sort($custom-props) !global;
 }
 
 /*
@@ -469,8 +500,7 @@ img {
  * used in the css system.
  */
 %theme {
-  $qwe: map-sort($custom-props);
-  @each $custom_prop, $custom_prop_value in $qwe {
+  @each $custom_prop, $custom_prop_value in $custom-props {
     #{$custom_prop}: #{$custom_prop_value};
   }
 }
