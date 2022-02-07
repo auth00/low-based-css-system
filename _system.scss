@@ -1,3 +1,5 @@
+@use 'vars';
+
 @use 'sass:map';
 
 @import './tools.scss';
@@ -314,6 +316,7 @@ $custom-props: () !global;
   > div {
     display: block flow-root; // Needed to make sure margins are filled
 
+    $custom-props: () !global;
     @include realm-reset(color-scheme);
 
     --color-scheme--background-color: var(
