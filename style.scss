@@ -1,11 +1,20 @@
+@use 'sass:map';
+@use 'sass:meta';
+
+$custom-props: ();
+
 /*
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $name, $realm, $class) {
-  --_#{$prop}: var(
-    --#{$realm}--#{$class}--#{$name}--#{$prop},
-    var(--#{$realm}--#{$class}--#{$prop})
-  );
+  $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
+  --_#{$prop}: var(#{$custom_prop}, var(--#{$realm}--#{$class}--#{$prop}));
+  $custom-props: map.merge(
+    $custom-props,
+    (
+      $custom_prop: 'qwe',
+    )
+  ) !global;
 }
 
 /*
@@ -470,4 +479,18 @@ img {
   @extend %theme;
   @extend %theme--site;
   @extend %typo;
+}
+
+$custom-props: map.merge(
+  $custom-props,
+  (
+    '--zxc': 'qwe',
+  )
+);
+
+:root {
+  --qwe-a: qwe;
+  @each $custom_prop, $custom_prop_value in $custom-props {
+    #{$custom_prop}: #{$custom_prop_value};
+  }
 }
