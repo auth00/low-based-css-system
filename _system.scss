@@ -8,35 +8,50 @@ $custom-props: () !global;
  * Mixin used to create custom property with content class fallback
  */
 @mixin prop($prop, $realm, $value, $name: '', $class: '') {
+  @if not map.has-key($custom-props, $realm) {
+    $custom-props: map.set($custom-props, $realm, ()) !global;
+  }
   @if $class != '' {
     $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
     $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
 
     --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, #{$value}));
 
-    $custom-props: map.merge(
+    $custom-props: map.set(
       $custom-props,
-      (
-        $custom_prop_fallback: 'intial',
+      $realm,
+      map.merge(
+        map.get($custom-props, $realm),
+        (
+          $custom_prop_fallback: 'intial',
+        )
       )
-    );
-    $custom-props: map.merge(
+    ) !global;
+    $custom-props: map.set(
       $custom-props,
-      (
-        $custom_prop: $value,
+      $realm,
+      map.merge(
+        map.get($custom-props, $realm),
+        (
+          $custom_prop: $value,
+        )
       )
-    );
+    ) !global;
   } @else {
     $custom_prop: '--#{$realm}--#{$prop}';
 
     --_#{$prop}: var(#{$custom_prop}, #{$value});
 
-    $custom-props: map.merge(
+    $custom-props: map.set(
       $custom-props,
-      (
-        $custom_prop: $value,
+      $realm,
+      map.merge(
+        map.get($custom-props, $realm),
+        (
+          $custom_prop: $value,
+        )
       )
-    );
+    ) !global;
   }
 }
 
@@ -76,14 +91,24 @@ $custom-props: () !global;
   }
 }
 
+@mixin realm-reset($realm) {
+  @each $custom_prop,
+    $custom_prop_value in map-sort(map.get($custom-props, $realm))
+  {
+    #{$custom_prop}: #{$custom_prop_value};
+  }
+}
+
 /*
 * Debug purposes only
 * Theme is a special abstract class that defines every custom property
 * used in the css system.
 */
 @mixin theme-props {
-  @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
-    --_#{$custom_prop}: #{$custom_prop_value};
+  @each $realm, $realm-props in $custom-props {
+    @each $custom_prop, $custom_prop_value in map-sort($realm-props) {
+      --_#{$custom_prop}: #{$custom_prop_value};
+    }
   }
 }
 
@@ -288,7 +313,7 @@ $custom-props: () !global;
 
   > div {
     display: block flow-root; // Needed to make sure margins are filled
-
+    @include realm-reset('color-scheme');
     --color-scheme--background-color: var(
       --color-scheme--background-color--contrast,
       initial
