@@ -4,7 +4,6 @@
 @use 'sass:string';
 @use 'sass:math';
 
-
 /// Default order used to determine which string comes first
 /// @type List
 $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'']'
@@ -67,8 +66,6 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
       }
     }
 
-    @return $list;
-
     @return join(
       join(quick-sort($less, $order), $equal),
       quick-sort($large, $order)
@@ -76,13 +73,6 @@ $default-order: '!' '#' '$' '%' '&' "'" '(' ')' '*' '+' ',' '-' '.' '/' '[' '\\'
   }
 
   @return $list;
-}
-
-:root {
-  $qwe: ("b", "c", "a");
-  @each $asd in $qwe {
-    --#{$asd}: $asd;
-  }
 }
 
 /// map-sort
