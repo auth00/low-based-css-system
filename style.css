@@ -1,0 +1,38 @@
+
+:root {
+  --content--air--normal: 15px;
+
+  --color--background--red: rgb(255, 153, 153);
+  --color--background--green: rgb(156, 253, 156);
+  --color--background--blue: rgb(110, 152, 231);
+  --color--text: black;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color--background--red: rgb(53, 3, 3);
+    --color--background--green: rgb(0, 63, 0);
+    --color--background--blue: rgb(0, 20, 56);
+    --color--text: white;
+  }
+}
+
+
+.color-r {
+  --color-scheme--text-color: var(--color--text);
+  --color-scheme--background-color: var(--color--background--red);
+  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+}
+
+.color-g {
+  --color-scheme--text-color: var(--color--text);
+  --color-scheme--background-color: var(--color--background--green);
+  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+}
+
+.color-b {
+  --color-scheme--text-color: var(--color--text);
+  --color-scheme--background-color: var(--color--background--blue);
+  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+}

@@ -1,5 +1,6 @@
 import './reset.scss';
-import './style.scss';
+import './system.scss';
+import './style.css';
 
 /*
  * This script sets a variable called --scrollbar--width
