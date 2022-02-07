@@ -148,7 +148,7 @@
 
   @include theme-props;
 }
-
+/*
 .group {
   @extend %group;
 }
@@ -156,6 +156,7 @@
 .columns {
   @extend %columns;
 }
+*/
 
 @import './card.scss';
 @import './compact-card.scss';

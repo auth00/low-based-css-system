@@ -299,17 +299,18 @@
 %content--class--color-scheme {
   @extend %content--class--widget;
 
-  @include prop(background-color, color-scheme, revert);
+  @include prop('background', color-scheme, revert);
+  @include prop('background-contrast', color-scheme, revert);
 
   @include realm-reset(color-scheme);
 
   > div {
-    background-color: var(--_background-color);
+    background: var(--_background);
 
     display: block flow-root; // Needed to make sure margins are filled
 
-    --color-scheme--background-color: var(
-      --color-scheme--background-color--contrast,
+    --color-scheme--background: var(
+      --color-scheme--background-contrast,
       revert
     );
   }

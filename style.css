@@ -24,20 +24,20 @@
 .color-r {
   --color-scheme--text-color: var(--color--text);
   --color-scheme--text--body--text-color: red;
-  --color-scheme--background-color: var(--color--background--red);
-  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+  --color-scheme--background: var(--color--background--red);
+  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
 
 .color-g {
   --color-scheme--text-color: var(--color--text);
-  --color-scheme--background-color: var(--color--background--green);
-  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+  --color-scheme--background: var(--color--background--green);
+  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
 
 .color-b {
   --color-scheme--text-color: var(--color--text);
-  --color-scheme--background-color: var(--color--background--blue);
-  --color-scheme--background-color--contrast: rgba(0, 0, 0, 0.2);
+  --color-scheme--background: var(--color--background--blue);
+  --color-scheme--background-contrast: rgba(0, 0, 0, 0.2);
 }
 
 
