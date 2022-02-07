@@ -9,7 +9,7 @@
   @include prop('vspace-before', 'space', '0px', 'card', 'widget');
   @include prop('vspace-after', 'space', '0px', 'card', 'widget');
 
-  min-width: var(--content--card--min-width, 120px);
+  min-width: var(--content--card--min-width, 80px);
   max-width: var(--content--card--max-width, 400px);
 
   > .card__header {

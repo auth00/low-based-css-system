@@ -19,13 +19,13 @@ $custom-props: () !global;
       (
         $custom_prop_fallback: 'intial',
       )
-    ) !global;
+    );
     $custom-props: map.merge(
       $custom-props,
       (
         $custom_prop: $value,
       )
-    ) !global;
+    );
   } @else {
     $custom_prop: '--#{$realm}--#{$prop}';
 
@@ -36,7 +36,7 @@ $custom-props: () !global;
       (
         $custom_prop: $value,
       )
-    ) !global;
+    );
   }
 }
 
@@ -117,7 +117,7 @@ $custom-props: () !global;
   );
   --_text-align: var(
     --content--text-align,
-    var(--content--text-align--default, left)
+    var(--content--text-align--default)
   );
 }
 
@@ -341,17 +341,26 @@ $custom-props: () !global;
   }
 }
 
+/*
+ * TODO: Define a
+ */
 .columns {
   @extend .content--class--widget;
   @extend %content--defaults--air--normal;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  //grid-template-columns: repeat(3, 1fr);
+  //
 
   > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 20px;
     > div {
-      @extend .content--vspace--none;
+      flex: 1 1 20px;
+      > div {
+        @extend .content--vspace--none;
+      }
     }
   }
 }
@@ -368,15 +377,15 @@ $custom-props: () !global;
   @extend .content--class--media;
   @extend %content--defaults--air--none;
 
-  @include prop('vspace-before', 'space', '0px', 'img', 'media');
-  @include prop('vspace-after', 'space', '0px', 'img', 'media');
+  @include prop(vspace-before, space, 0px, img, media);
+  @include prop(vspace-after, space, 0px, img, media);
 }
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
 
-  @include prop('vspace-before', 'space', '0px', 'img-embed', 'media');
-  @include prop('vspace-after', 'space', '0px', 'img-embed', 'media');
+  @include prop(vspace-before, space, 0px, img-embed, media);
+  @include prop(vspace-after, space, 0px, img-embed, media);
 }
 .img {
   > div {
