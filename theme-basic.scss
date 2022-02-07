@@ -9,9 +9,6 @@
 @import './reset.scss';
 @import './system.scss';
 
-@import './card.scss';
-@import './compact-card.scss';
-
 // This is our main theme (overrides from %theme)
 %theme--site {
   --content--width--normal: 500px;
@@ -20,10 +17,10 @@
 }
 
 /*
- * More widths can be added to the system at compile time.
- * The names to use can be what ever but maybe "narrow" and
- * "wide" are two good candidates
- */
+  * More widths can be added to the system at compile time.
+  * The names to use can be what ever but maybe "narrow" and
+  * "wide" are two good candidates
+  */
 .content--width--narrow {
   --content--width: var(--content--width--narrow, 500px);
 }
@@ -34,51 +31,18 @@
 }
 
 /*
- * Typografy package with all typo levels
- * Here we add all levels that are available
- * in the system.
- */
+  * Typografy package with all typo levels
+  * Here we add all levels that are available
+  * in the system.
+  */
 %typesetting {
   @include typesetting(
-    'headline-1',
-    '.headline-1, h1, h2',
+    'headline',
+    '.headline-1, h1, h2, h3, h4, h5, h6',
     (
       vspace-before: 0.67em,
       vspace-after: 0.67em,
       font-size: 2em,
-      font-weight: bold,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'headline-2',
-    '.headline-2, h3',
-    (
-      vspace-before: 0.75em,
-      vspace-after: 0.75em,
-      font-size: 2em,
-      font-weight: bold,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'headline-3',
-    '.headline-3, h4',
-    (
-      vspace-before: 0.5em,
-      vspace-after: 0.5em,
-      font-size: 2em,
-      font-weight: bold,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'headline-4',
-    '.headline-4, h5, h6',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1.33em,
       font-weight: bold,
       text-color: var(--color-scheme--text-color),
     )
@@ -93,60 +57,10 @@
       text-color: var(--color-scheme--text-color),
     )
   );
-  @include typesetting(
-    'body-2',
-    '.body, .body-2',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1em,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'ingress',
-    '.ingress',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1em,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'summary',
-    '.summary',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1em,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'menu',
-    '.menu',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1em,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
-  @include typesetting(
-    'caption',
-    '.caption',
-    (
-      vspace-before: 0.4em,
-      vspace-after: 0.4em,
-      font-size: 1em,
-      text-color: var(--color-scheme--text-color),
-    )
-  );
 }
 
 .root {
-  @extend %theme;
   @extend %theme--site;
   @extend %typesetting;
+  @include theme-props;
 }

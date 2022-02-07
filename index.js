@@ -1,5 +1,6 @@
-import './theme-basic.scss';
+//import './theme-default.scss';
 import './style.css';
+import './card.scss';
 
 /*
  * This script sets a variable called --scrollbar--width

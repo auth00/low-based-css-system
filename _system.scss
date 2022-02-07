@@ -76,6 +76,17 @@ $custom-props: () !global;
   }
 }
 
+/*
+* Debug purposes only
+* Theme is a special abstract class that defines every custom property
+* used in the css system.
+*/
+@mixin theme-props {
+  @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
+    --_#{$custom_prop}: #{$custom_prop_value};
+  }
+}
+
 // Anywhere in the tree we can switch over to another theme
 .theme--full-width {
   --content--width--normal: 100%;
@@ -381,16 +392,5 @@ $custom-props: () !global;
     height: 90px;
     max-width: 100%;
     background-image: url(https://picsum.photos/400/30);
-  }
-}
-
-/*
- * Debug purposes only
- * Theme is a special abstract class that defines every custom property
- * used in the css system.
- */
-%theme {
-  @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
-    --_#{$custom_prop}: #{$custom_prop_value};
   }
 }
