@@ -468,7 +468,8 @@ img {
  * used in the css system.
  */
 %theme {
-  @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
+  $qwe: map-sort($custom-props);
+  @each $custom_prop, $custom_prop_value in $qwe {
     #{$custom_prop}: #{$custom_prop_value};
   }
 }
