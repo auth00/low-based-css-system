@@ -9,22 +9,46 @@
 /*
  * Mixin used to create custom property with content class fallback
  */
-@mixin prop($prop, $name, $realm, $class, $value) {
-  $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
-  $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
-  --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, #{$value}));
-  $custom-props: map.merge(
-    $custom-props,
-    (
-      $custom_prop_fallback: 'intial',
-    )
-  ) !global;
-  $custom-props: map.merge(
-    $custom-props,
-    (
-      $custom_prop: $value,
-    )
-  ) !global;
+@mixin prop($prop, $realm, $value, $name:'', $class:'') {
+  @if $class != '' {
+    $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
+    $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
+    $custom_prop_fallback_2: '--#{$realm}--#{$prop}';
+
+    --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, var(#{$custom_prop_fallback_2}, #{$value})));
+
+    $custom-props: map.merge(
+      $custom-props,
+      (
+        $custom_prop_fallback_2: 'intial',
+      )
+    ) !global;    $custom-props: map.merge(
+      $custom-props,
+      (
+        $custom_prop_fallback: 'intial',
+      )
+    ) !global;
+    $custom-props: map.merge(
+      $custom-props,
+      (
+        $custom_prop: $value,
+      )
+    ) !global;
+  
+  } @else {
+    $custom_prop: '--#{$realm}--#{$prop}';
+
+    --_#{$prop}: var(#{$custom_prop}, #{$value});
+ 
+    $custom-props: map.merge(
+      $custom-props,
+      (
+        $custom_prop: $value,
+      )
+    ) !global;
+  }
+
+ 
 }
 
 /*
@@ -46,14 +70,17 @@
             font-family,
             font-weight,
             line-height,
+          ),
+          color-scheme: (
+            text-color
           )
         )
     {
       @each $prop in $props {
         @if map.has-key($value, $prop) {
-          @include prop($prop, $name, $realm, 'text', map.get($value, $prop));
+          @include prop($prop, $realm, map.get($value, $prop), $name, 'text');
         } @else {
-          @include prop($prop, $name, $realm, 'text', inital);
+          @include prop($prop, $realm, inital, $name, 'text');
         }
       }
     }
@@ -78,45 +105,6 @@
 }
 
 /*
- * Themes are used to set up look and feel for
- * parts of the site. On this site we want
- * two different kind of cards. 
- */
-%theme--card-a {
-}
-
-%theme--card-b {
-}
-
-// A naive reset *for this demo only*
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background-color: pink;
-}
-
-// Test to see what would happen with something like contextuals in drupal *for this demo only*
-.contextual {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-// Helper classes to set some background colors *for this demo only*
-.color-r {
-  --bg-clr: red;
-}
-
-.color-g {
-  --bg-clr: green;
-}
-
-.color-b {
-  --bg-clr: blue;
-}
-
-/*
  * Groups provides a way to group content together and
  * should handle stuff like:
  *  * color schemes
@@ -132,8 +120,10 @@ body {
 .group {
   @extend .content--class--widget;
 
+  @include prop('background-color', 'color-scheme', initial, default, group);
+
   //display: block flow-root;
-  background-color: var(--bg-clr);
+  background-color: var(--_background-color);
   overflow-x: auto;
 
   > div {
@@ -182,7 +172,10 @@ body {
     --content--vspace-after,
     var(--content--vspace-after--default)
   );
-  --_text-align: var(--content--text-align, var(--content--text-align--default, left));
+  --_text-align: var(
+    --content--text-align,
+    var(--content--text-align--default, left)
+  );
 }
 
 .content {
@@ -203,6 +196,7 @@ body {
   font-size: var(--_font-size);
   line-height: var(--_line-height);
   text-align: var(--_text-align);
+  color: var(--_text-color)
 }
 
 .content--align--center {
@@ -346,24 +340,11 @@ body {
   @extend %content--defaults--width--full;
 }
 
-/*
- * Colors
- */
-.color-scheme--1 {
-  @include prop(
-    'text-color',
-    'color-scheme--1',
-    'color-scheme',
-    'qwe',
-    'black'
-  );
-}
-
 .card {
   @extend .content--class--widget;
 
-  @include prop('vspace-before', 'card', 'space', 'widget', '0px');
-  @include prop('vspace-after', 'card', 'space', 'widget', '0px');
+  @include prop('vspace-before', 'space', '0px', 'card', 'widget');
+  @include prop('vspace-after', 'space', '0px', 'card', 'widget');
 
   min-width: var(--content--card--min-width, 120px);
   max-width: var(--content--card--max-width, 400px);
@@ -405,16 +386,16 @@ body {
   @extend .content--class--media;
   @extend %content--defaults--air--none;
 
-  @include prop('vspace-before', 'img', 'space', 'media', '0px');
-  @include prop('vspace-after', 'img', 'space', 'media', '0px');
+  @include prop('vspace-before', 'space', '0px', 'img', 'media');
+  @include prop('vspace-after', 'space', '0px', 'img', 'media');
 }
 
 .img-embed {
   @extend .content--class--media;
   @extend %content--defaults--air--normal;
 
-  @include prop('vspace-before', 'img-embed', 'space', 'media', '0px');
-  @include prop('vspace-after', 'img-embed', 'space', 'media', '0px');
+  @include prop('vspace-before', 'space', '0px', 'img-embed', 'media');
+  @include prop('vspace-after', 'space', '0px', 'img-embed', 'media');
 }
 
 img {
@@ -476,6 +457,7 @@ img {
       vspace-after: 0.67em,
       font-size: 2em,
       font-weight: bold,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -486,6 +468,7 @@ img {
       vspace-after: 0.75em,
       font-size: 2em,
       font-weight: bold,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -496,6 +479,7 @@ img {
       vspace-after: 0.5em,
       font-size: 2em,
       font-weight: bold,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -506,6 +490,7 @@ img {
       vspace-after: 0.4em,
       font-size: 1.33em,
       font-weight: bold,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -515,6 +500,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -524,6 +510,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -533,6 +520,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -542,6 +530,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -551,6 +540,7 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
   @include typesetting(
@@ -560,8 +550,17 @@ img {
       vspace-before: 0.4em,
       vspace-after: 0.4em,
       font-size: 1em,
+      text-color: var(--color-scheme--text-color),
     )
   );
+}
+
+/*
+ * Colors
+ */
+.color-scheme--1 {
+  @include prop('text-color', 'color-scheme', 'black');
+  @include prop('background-color', 'color-scheme', 'intial');
 }
 
 .root {
@@ -576,7 +575,7 @@ img {
  */
 %theme {
   @each $custom_prop, $custom_prop_value in map-sort($custom-props) {
-    #{$custom_prop}: #{$custom_prop_value};
+    --_#{$custom_prop}: #{$custom_prop_value};
   }
 }
 
@@ -613,3 +612,8 @@ img {
   --content--widget--card--vspace-after: 1em;
 }
 */
+
+.theme--red {
+  --color-scheme--text-color: blue;
+  --color-scheme--background-color: red;
+}

@@ -1,4 +1,4 @@
-// Import stylesheets
+import './reset.scss';
 import './style.scss';
 
 /*

@@ -1,0 +1,27 @@
+// A naive reset *for this demo only*
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: pink;
+}
+
+// Test to see what would happen with something like contextuals in drupal *for this demo only*
+.contextual {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+// Helper classes to set some background colors *for this demo only*
+.color-r {
+  --bg-clr: red;
+}
+
+.color-g {
+  --bg-clr: green;
+}
+
+.color-b {
+  --bg-clr: blue;
+}
