@@ -9,20 +9,14 @@
 /*
  * Mixin used to create custom property with content class fallback
  */
-@mixin prop($prop, $realm, $value, $name:'', $class:'') {
+@mixin prop($prop, $realm, $value, $name: '', $class: '') {
   @if $class != '' {
     $custom_prop: '--#{$realm}--#{$class}--#{$name}--#{$prop}';
     $custom_prop_fallback: '--#{$realm}--#{$class}--#{$prop}';
-    $custom_prop_fallback_2: '--#{$realm}--#{$prop}';
 
-    --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, var(#{$custom_prop_fallback_2}, #{$value})));
+    --_#{$prop}: var(#{$custom_prop}, var(#{$custom_prop_fallback}, #{$value}));
 
     $custom-props: map.merge(
-      $custom-props,
-      (
-        $custom_prop_fallback_2: 'intial',
-      )
-    ) !global;    $custom-props: map.merge(
       $custom-props,
       (
         $custom_prop_fallback: 'intial',
@@ -34,12 +28,11 @@
         $custom_prop: $value,
       )
     ) !global;
-  
   } @else {
     $custom_prop: '--#{$realm}--#{$prop}';
 
     --_#{$prop}: var(#{$custom_prop}, #{$value});
- 
+
     $custom-props: map.merge(
       $custom-props,
       (
@@ -47,8 +40,6 @@
       )
     ) !global;
   }
-
- 
 }
 
 /*
@@ -72,7 +63,7 @@
             line-height,
           ),
           color-scheme: (
-            text-color
+            text-color,
           )
         )
     {
@@ -120,7 +111,7 @@
 .group {
   @extend .content--class--widget;
 
-  @include prop('background-color', 'color-scheme', initial, default, group);
+  @include prop('background-color', 'color-scheme', initial);
 
   //display: block flow-root;
   background-color: var(--_background-color);
@@ -196,7 +187,7 @@
   font-size: var(--_font-size);
   line-height: var(--_line-height);
   text-align: var(--_text-align);
-  color: var(--_text-color)
+  color: var(--_text-color);
 }
 
 .content--align--center {
@@ -336,6 +327,7 @@
  */
 .content--class--widget {
   @extend .content;
+  @extend .group;
   @extend %content--defaults--air--none;
   @extend %content--defaults--width--full;
 }
@@ -343,12 +335,13 @@
 .card {
   @extend .content--class--widget;
 
+  @extend %color-scheme--root;
+
   @include prop('vspace-before', 'space', '0px', 'card', 'widget');
   @include prop('vspace-after', 'space', '0px', 'card', 'widget');
 
   min-width: var(--content--card--min-width, 120px);
   max-width: var(--content--card--max-width, 400px);
-  background-color: rgba(0, 0, 0, 0.5);
 
   > .card__header {
     @extend .content--air--none;
@@ -555,13 +548,20 @@ img {
   );
 }
 
+%color-scheme--root {
+  @include prop('text-color', 'color-scheme', 'red');
+  @include prop('background-color', 'color-scheme', 'intial');
+}
+
 /*
  * Colors
  */
+ /*
 .color-scheme--1 {
   @include prop('text-color', 'color-scheme', 'black');
   @include prop('background-color', 'color-scheme', 'intial');
 }
+*/
 
 .root {
   @extend %theme;
@@ -613,7 +613,37 @@ img {
 }
 */
 
-.theme--red {
-  --color-scheme--text-color: blue;
+/*
+ * Color schemes
+ *
+ * --color-scheme--background-color: 
+ * --color-scheme--group--background-color: 
+ * --color-scheme--group--default--background-color: 
+ * --color-scheme--text--body--text-color: 
+ * --color-scheme--text--body-2--text-color: 
+ * --color-scheme--text--caption--text-color: 
+ * --color-scheme--text--headline-1--text-color: 
+ * --color-scheme--text--headline-2--text-color: 
+ * --color-scheme--text--headline-3--text-color: 
+ * --color-scheme--text--headline-4--text-color: 
+ * --color-scheme--text--ingress--text-color: 
+ * --color-scheme--text--menu--text-color: 
+ * --color-scheme--text--summary--text-color:
+ * --color-scheme--text--text-color: 
+ * --color-scheme--text-color: 
+ */
+.color-r {
+  --color-scheme--text-color: darkred;
   --color-scheme--background-color: red;
+  //--color-scheme--text--body--text-color: pink;
+}
+
+.color-g {
+  --color-scheme--text-color: darkgreen;
+  --color-scheme--background-color: green;
+}
+
+.color-b {
+  --color-scheme--text-color: darkblue;
+  --color-scheme--background-color: blue;
 }
