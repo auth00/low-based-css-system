@@ -1,5 +1,5 @@
 .root {
-  --content--air--normal: 15px;
+  --space--viewport-air--normal: 15px;
 
   --color--background--red: rgb(255, 153, 153);
   --color--background--green: rgb(156, 253, 156);

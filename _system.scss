@@ -60,6 +60,8 @@
 @mixin typesetting($name, $selectors, $value) {
   #{$selectors} {
     @include class--text($name);
+    @extend %class--space;
+    @include class--space--props($name, 'text');
 
     @each $realm,
       $props
@@ -121,15 +123,19 @@
  * is also extended by other tags and classes like 
  * p, img and .preamble to make them become content.
  */
+/*
 %content {
   --_content--air: var(--content--air, var(--content--air--default));
 }
+*/
 %content {
   position: relative;
+  /*
   margin-top: var(--_vspace-before);
   margin-bottom: var(--_vspace-after);
   margin-inline: auto;
   padding: 0 var(--_content--air);
+*/
   transition: color 1s;
 }
 
@@ -155,11 +161,11 @@
  * Air usage can be set per content instance using a class.
  */
 .content--air--none {
-  --content--air: 0;
+  --space--viewport-air: 0;
 }
 
 .content--air--normal {
-  --content--air: var(--content--air--normal, 5px);
+  --space--viewport-air: var(--space--viewport-air--normal, 5px);
 }
 
 /*
@@ -212,11 +218,11 @@
 }
 
 %defaults--air--none {
-  --content--air--default: 0px;
+  --space--viewport-air--default: 0px;
 }
 
 %defaults--air--normal {
-  --content--air--default: var(--content--air--normal, 5px);
+  --space--viewport-air--default: var(--space--viewport-air--normal, 5px);
 }
 
 /*
@@ -264,8 +270,8 @@
   max-width: \min(
     var(--_max-width),
     calc(
-      100vw - var(--scrollbar--width, 0px) - var(--content--air--default, 0px) *
-        2
+      100vw - var(--scrollbar--width, 0px) -
+        var(--space--viewport-air--default, 0px) * 2
     )
   );
 }
@@ -274,16 +280,15 @@
 }
 
 %class--space {
-  max-width: var(--_max-width);
+  margin-top: var(--_vspace-before);
+  margin-bottom: var(--_vspace-after);
+  margin-inline: auto;
+  padding: 0 var(--_viewport-air);
 }
 @mixin class--space--props($name, $class) {
-  @include prop(
-    max-width,
-    $name,
-    var(--width--max-width--default, 100%),
-    $class,
-    space
-  );
+  @include prop(vspace-before, space, 0px, $name, $class);
+  @include prop(vspace-after, space, 0px, $name, $class);
+  @include prop(viewport-air, space, 0px, $name, $class);
 }
 
 /*
