@@ -96,10 +96,12 @@
  * Resets all custom properties in a given realm
  */
 @mixin realm-reset($realm) {
-  @each $custom_prop,
-    $custom_prop_value in map-sort(map.get($custom-props, $realm))
-  {
-    #{$custom_prop}: #{$custom_prop_value};
+  @if map.has-key($custom-props, $realm) {
+    @each $custom_prop,
+      $custom_prop_value in map-sort(map.get($custom-props, $realm))
+    {
+      #{$custom_prop}: #{$custom_prop_value};
+    }
   }
 }
 
