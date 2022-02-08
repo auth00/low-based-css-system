@@ -256,6 +256,8 @@
 %class--width {
   max-width: var(--_max-width);
   min-width: var(--_min-width);
+
+  @include realm-reset(width);
 }
 @mixin class--width--props($class, $realm) {
   @include prop(
@@ -292,6 +294,8 @@
   margin-bottom: var(--_vspace-after);
   margin-inline: auto;
   padding: 0 var(--_viewport-air);
+
+  @include realm-reset(space);
 }
 @mixin class--space--props($name, $class) {
   @include prop(vspace-before, space, 0px, $name, $class);

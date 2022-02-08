@@ -9,8 +9,8 @@
   @extend %class--space;
   @include class--space--props(columns, widget);
 
-  @extend %class--width-with-viewport-air;
-  @include class--width--props(columns, widget);
+  //@extend %class--width-with-viewport-air;
+  //@include class--width--props(columns, widget);
 
   @extend %defaults--air--none;
 

@@ -45,8 +45,8 @@
 }
 
 .theme--full-width {
-  --content--width--normal: 100%;
-  --content--width--narrow: 100%;
+  --width--max-width--normal: 100%;
+  --width--max-width--narrow: 100%;
 }
 
 .theme--vspace--1 {
