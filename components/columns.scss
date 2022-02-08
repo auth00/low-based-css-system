@@ -15,6 +15,7 @@
   @extend %defaults--air--none;
 
   @include prop(space-between, space, 0px, columns, widget);
+  @include prop(max-column-width, space, 0px, columns, widget);
 
   > div {
     display: flex;
@@ -24,7 +25,7 @@
     > .columns__column {
       flex-grow: 1;
       flex-shrink: 1;
-      flex-basis: var(--_max-width);
+      flex-basis: var(--_max-column-width);
       @extend %class--width;
       > div {
         @extend .space--vspace--none;

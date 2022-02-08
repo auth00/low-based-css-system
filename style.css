@@ -62,5 +62,5 @@
 }
 
 .columns--qwe {
-  --width--max-width--default: 100px;
+  --width--max-column-width: 100px;
 }
