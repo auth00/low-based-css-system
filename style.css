@@ -6,7 +6,7 @@
   --color--background--blue: rgb(110, 152, 231);
   --color--text: black;
 
-  --width--widget--card--max-width: 200px;
+  --width--widget--card--max-width: 300px;
 }
 
 @media (prefers-color-scheme: dark) {
