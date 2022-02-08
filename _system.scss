@@ -59,7 +59,7 @@
  */
 @mixin typesetting($name, $selectors, $value) {
   #{$selectors} {
-    @include content--class--text($name);
+    @include class--text($name);
 
     @each $realm,
       $props
@@ -123,13 +123,7 @@
  */
 %content {
   --_content--air: var(--content--air, var(--content--air--default));
-
-  --_text-align: var(
-    --content--text-align,
-    var(--content--text-align--default)
-  );
 }
-
 %content {
   position: relative;
   margin-top: var(--_vspace-before);
@@ -143,24 +137,18 @@
   @extend %content;
 }
 
-.content--align--center {
-  --content--text-align: center;
-}
-
 /*
  * These utility modifiers can be used to alter 
  * content behaviour.
  */
-.content--width--normal {
+.width--normal {
   // "normal" is a reserved content width keyword
-  //--content--width: var(--content--width--normal, 500px);
-  --width--max-width: var(--width--max-width--normal, 500px);
+  --width--max-width--normal: var(--width--max-width--normal--default, 100%);
 }
 
-.content--width--full {
+.width--full {
   // "full" is a reserved content width keyword and is always 100%
-  --width--max-width: 100%;
-  ///*@include realm-reset(width);*/
+  --width--max-width--normal: 100%;
 }
 
 /*
@@ -183,19 +171,19 @@
  * Due to how margin collapsing works this markup somewhere 
  * between two content elements will make them have no
  * space between them.
- * <div class="content--vspace--none"><div></div></div>
+ * <div class="space--vspace--none"><div></div></div>
  *
  * Any content class can also implement a "marginkiller"
- * by adding @extend .content--vspace--none to to some 
+ * by adding @extend .space--vspace--none to to some 
  * part of the component markup. Columns does this for each
  * item to ensure css "gap" is the feature providing the space.
  */
-.content--vspace--none {
-  @extend .content--vspace-before--none;
-  @extend .content--vspace-after--none;
+.space--vspace--none {
+  @extend .space--vspace-before--none;
+  @extend .space--vspace-after--none;
 }
 
-.content--vspace-before--none {
+.space--vspace-before--none {
   margin-top: 999px;
 
   > * {
@@ -203,7 +191,7 @@
   }
 }
 
-.content--vspace-after--none {
+.space--vspace-after--none {
   margin-bottom: 999px;
 
   > * {
@@ -215,19 +203,19 @@
  * Default anonymous classes to support different
  * default behaviors for different kind of content.
  */
-%content--defaults--width--normal {
+%defaults--width--normal {
   --width--max-width--default: var(--width--max-width--normal, 600px);
 }
 
-%content--defaults--width--full {
+%defaults--width--full {
   --width--max-width--default: 100%;
 }
 
-%content--defaults--air--none {
+%defaults--air--none {
   --content--air--default: 0px;
 }
 
-%content--defaults--air--normal {
+%defaults--air--normal {
   --content--air--default: var(--content--air--normal, 5px);
 }
 
@@ -237,10 +225,10 @@
  *  * air:off
  *  * width:normal
  */
-%content--class--media {
+%class--media {
   @extend %content;
-  @extend %content--defaults--air--none;
-  @extend %content--defaults--width--normal;
+  @extend %defaults--air--none;
+  @extend %defaults--width--normal;
 }
 
 /*
@@ -250,17 +238,17 @@
  *  * air:off
  *  * width:full
  */
-%content--class--widget {
+%class--widget {
   @extend %content;
-  @extend %content--defaults--air--none;
-  @extend %content--defaults--width--full;
+  @extend %defaults--air--none;
+  @extend %defaults--width--full;
 
   > div {
     display: block flow-root;
   }
 }
 
-@mixin content--class--width($class: '', $realm: '') {
+@mixin class--width($class: '', $realm: '') {
   @if $realm == '' {
     @include prop(max-width, width, var(--width--max-width--default, 100%));
   } @else {
@@ -276,8 +264,8 @@
   max-width: var(--_max-width);
 }
 
-@mixin content--class--width-with-viewport-air($class: '', $realm: '') {
-  @include content--class--width($class, $realm);
+@mixin class--width-with-viewport-air($class: '', $realm: '') {
+  @include class--width($class, $realm);
 
   /*
    * Added 
@@ -296,8 +284,8 @@
  * capable of altering the current color-scheme
  * All color-scheme classes are also widgets
  */
-%content--class--color-scheme {
-  @extend %content--class--widget;
+%class--color-scheme {
+  @extend %class--widget;
 
   @include prop('background', color-scheme, revert);
   @include prop('background-contrast', color-scheme, rgb(0, 0, 0, 0.2));
@@ -323,131 +311,21 @@
  *  * air:on
  *  * width:normal
  */
-@mixin content--class--text($name: '') {
+@mixin class--text($name: '') {
   @extend %content;
 
   @if $name == '' {
-    @include content--class--width-with-viewport-air();
+    @include class--width-with-viewport-air();
   } @else {
-    @include content--class--width-with-viewport-air($name, 'text');
+    @include class--width-with-viewport-air($name, 'text');
   }
 
-  @extend %content--defaults--air--normal;
-  @extend %content--defaults--width--normal;
+  @extend %defaults--air--normal;
+  @extend %defaults--width--normal;
 
   font-family: var(--_font-family);
   font-size: var(--_font-size);
   line-height: var(--_line-height);
   text-align: var(--_text-align);
   color: var(--_text-color);
-}
-
-/*
- * Groups provides a way to group content together and
- * should handle stuff like:
- *  * color-schemes
- *  * dividers like borders
- *  * ???
- *
- * The group resets the flow box
- * The markup is always 2 divs with modifiers on the first:
- *  div.group[.modifiers] > div
- *
- *
- */
-.group {
-  @extend %content--class--color-scheme;
-
-  @include prop(vspace--header, space, 0px, default, group);
-  @include prop(vspace--footer, space, 0px, default, group);
-
-  > div {
-    overflow-x: auto;
-    margin-top: var(--_vspace--header);
-    margin-bottom: var(--_vspace--footer);
-
-    > :first-child {
-      .group--header {
-        margin-top: calc(-1 * var(--_vspace--header));
-      }
-    }
-
-    > :last-child {
-      .group--footer {
-        margin-bottom: calc(-1 * var(--_vspace--footer));
-      }
-    }
-
-    > :first-child:last-child {
-      .group--banner {
-        margin-top: calc(-1 * var(--_vspace--header));
-        margin-bottom: calc(-1 * var(--_vspace--footer));
-      }
-    }
-  }
-}
-
-/*
- * TODO: Define a
- */
-.columns {
-  @extend %content--class--widget;
-  @extend %content--defaults--air--normal;
-
-  //grid-template-columns: repeat(3, 1fr);
-  //
-
-  > div {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    gap: 20px;
-    > div {
-      flex: 1 1 20px;
-      > div {
-        @extend .content--vspace--none;
-      }
-    }
-  }
-}
-
-/*
- * TODO: This needs to be worked more on
- */
-/*
- * This is some sort of generic image.
- * This should probably support <picture>
- * and other image related features.
- */
-.img {
-  @extend %content--class--media;
-  @extend %content--defaults--air--none;
-
-  @include content--class--width(img, media);
-
-  @include prop(vspace-before, space, 0px, img, media);
-  @include prop(vspace-after, space, 0px, img, media);
-
-  > div {
-    background-size: cover;
-    height: 90px;
-    max-width: 100%;
-    background-image: url(https://picsum.photos/400/30);
-  }
-}
-.img-embed {
-  @extend %content--class--media;
-  @extend %content--defaults--air--normal;
-
-  @include content--class--width-with-viewport-air(img-embed, media);
-
-  @include prop(vspace-before, space, 0px, img-embed, media);
-  @include prop(vspace-after, space, 0px, img-embed, media);
-
-  > div {
-    background-size: cover;
-    height: 90px;
-    max-width: 100%;
-    background-image: url(https://picsum.photos/400/30);
-  }
 }

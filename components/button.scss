@@ -1,4 +1,4 @@
-@import 'system.scss';
+@import '../system.scss';
 
 .button {
   @include prop(background-inverted, color-scheme, darkgray);

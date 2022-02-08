@@ -1,0 +1,25 @@
+@import '../system.scss';
+
+/*
+ * TODO: Define a
+ */
+.columns {
+  @extend %class--widget;
+  @extend %defaults--air--normal;
+
+  //grid-template-columns: repeat(3, 1fr);
+  //
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 20px;
+    > div {
+      flex: 1 1 20px;
+      > div {
+        @extend .space--vspace--none;
+      }
+    }
+  }
+}

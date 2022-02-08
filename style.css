@@ -53,10 +53,10 @@
   --space--group--vspace--header: 100px;
 }
 
-div.content--width--narrow {
-  --width--max-width--default: 400px;
+.content--width--narrow {
+  --width--max-width--normal: 400px;
 }
 
-div.content--width--wide {
-  --width--max-width--default: 800px;
+.content--width--wide {
+  --width--max-width--normal: 800px;
 }

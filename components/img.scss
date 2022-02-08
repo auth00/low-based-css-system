@@ -1,0 +1,26 @@
+@import '../system.scss';
+
+/*
+ * TODO: This needs to be worked more on
+ */
+/*
+ * This is some sort of generic image.
+ * This should probably support <picture>
+ * and other image related features.
+ */
+.img {
+  @extend %class--media;
+  @extend %defaults--air--none;
+
+  @include class--width(img, media);
+
+  @include prop(vspace-before, space, 0px, img, media);
+  @include prop(vspace-after, space, 0px, img, media);
+
+  > div {
+    background-size: cover;
+    height: 90px;
+    max-width: 100%;
+    background-image: url(https://picsum.photos/400/30);
+  }
+}
