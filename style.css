@@ -61,6 +61,6 @@
   --width--max-width--normal: 800px;
 }
 
-.columns--qwe .columns__column {
+.columns--qwe {
   --width--max-width--default: 100px;
 }
