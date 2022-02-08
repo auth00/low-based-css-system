@@ -5,18 +5,25 @@
  */
 .columns {
   @extend %class--widget;
-  @extend %defaults--air--normal;
 
-  //grid-template-columns: repeat(3, 1fr);
-  //
+  @extend %class--space;
+  @include class--space--props(columns, widget);
+
+  @extend %class--width-with-viewport-air;
+  @include class--width--props(columns, widget);
+
+  @extend %defaults--air--none;
+
+  @include prop(space-between, space, 0px, columns, widget);
 
   > div {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    gap: 20px;
+    gap: var(--_space-between);
     > div {
-      flex: 1 1 20px;
+      flex: 1 1 var(--_max-width);
+      @extend %class--width;
       > div {
         @extend .space--vspace--none;
       }

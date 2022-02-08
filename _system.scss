@@ -255,12 +255,20 @@
 
 %class--width {
   max-width: var(--_max-width);
+  min-width: var(--_min-width);
 }
 @mixin class--width--props($class, $realm) {
   @include prop(
     max-width,
     width,
     var(--width--max-width--default, 100%),
+    $class,
+    $realm
+  );
+  @include prop(
+    min-width,
+    width,
+    var(--width--min-width--default, 0px),
     $class,
     $realm
   );
