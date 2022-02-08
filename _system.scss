@@ -59,7 +59,7 @@
  */
 @mixin typesetting($name, $selectors, $value) {
   #{$selectors} {
-    @extend %content--class--text;
+    @include content--class--text($name);
 
     @each $realm,
       $props
@@ -114,16 +114,6 @@
   }
 }
 
-// Anywhere in the tree we can switch over to another theme
-.theme--full-width {
-  --content--width--normal: 100%;
-  --content--width--narrow: 100%;
-}
-
-.theme--vspace--1 {
-  --space--group--vspace--header: 100px;
-}
-
 /*
  * The content items share some properties but they
  * do not share a "base class". The class .content 
@@ -132,7 +122,6 @@
  * p, img and .preamble to make them become content.
  */
 %content {
-  --_content--width: var(--content--width, var(--content--width--default));
   --_content--air: var(--content--air, var(--content--air--default));
 
   --_text-align: var(
@@ -143,23 +132,10 @@
 
 %content {
   position: relative;
-  //width: calc(100% - var(--_content--air)*2);
-  max-width: \min(
-    var(--_content--width, 0px),
-    calc(
-      100vw - var(--scrollbar--width, 0px) - var(--content--air--default, 0px) *
-        2
-    )
-  );
   margin-top: var(--_vspace-before);
   margin-bottom: var(--_vspace-after);
   margin-inline: auto;
   padding: 0 var(--_content--air);
-  font-family: var(--_font-family);
-  font-size: var(--_font-size);
-  line-height: var(--_line-height);
-  text-align: var(--_text-align);
-  color: var(--_text-color);
   transition: color 1s;
 }
 
@@ -183,6 +159,7 @@
 .content--width--full {
   // "full" is a reserved content width keyword and is always 100%
   --content--width: 100%;
+  /*@include realm-reset(width);*/
 }
 
 /*
@@ -253,23 +230,6 @@
   --content--air--default: var(--content--air--normal, 5px);
 }
 
-//$content_media_image: img, ".img";
-// $content_media_video: ???;
-// $content_media_map: ???;
-//$content_item_teaser: ".teaser";
-
-/*
- * Text is a content class
- * defaults:
- *  * air:on
- *  * width:normal
- */
-%content--class--text {
-  @extend %content;
-  @extend %content--defaults--air--normal;
-  @extend %content--defaults--width--normal;
-}
-
 /*
  * Media is a content class
  * defaults:
@@ -299,6 +259,32 @@
   }
 }
 
+@mixin content--class--width($class: '', $realm: '') {
+  @if $realm == '' {
+    @include prop(max-width, width, 100%);
+  } @else {
+    @include prop(max-width, width, 100%, $class, $realm);
+  }
+  //--_content--width: var(--content--width, var(--content--width--default));
+
+  max-width: var(--_max-width);
+}
+
+@mixin content--class--width-with-viewport-air($class: '', $realm: '') {
+  @include content--class--width($class, $realm);
+
+  /*
+   * Added 
+   */
+  max-width: \min(
+    var(--_max-width),
+    calc(
+      100vw - var(--scrollbar--width, 0px) - var(--content--air--default, 0px) *
+        2
+    )
+  );
+}
+
 /*
  * content of class color-scheme is are
  * capable of altering the current color-scheme
@@ -323,6 +309,31 @@
       revert
     );
   }
+}
+
+/*
+ * Text is a content class
+ * defaults:
+ *  * air:on
+ *  * width:normal
+ */
+@mixin content--class--text($name: '') {
+  @extend %content;
+
+  @if $name == '' {
+    @include content--class--width-with-viewport-air('default', 'text');
+  } @else {
+    @include content--class--width-with-viewport-air($name, 'text');
+  }
+
+  @extend %content--defaults--air--normal;
+  @extend %content--defaults--width--normal;
+
+  font-family: var(--_font-family);
+  font-size: var(--_font-size);
+  line-height: var(--_line-height);
+  text-align: var(--_text-align);
+  color: var(--_text-color);
 }
 
 /*

@@ -7,6 +7,11 @@
   --color--text: black;
 
   --width--widget--card--max-width: 300px;
+  --width--text--max-width: 300px;
+}
+
+.width-wide {
+  --width--text--max-width: 300px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,4 +42,14 @@
 .color-b {
   --color-scheme--text-color: var(--color--text);
   --color-scheme--background: var(--color--background--blue);
+}
+
+// Anywhere in the tree we can switch over to another theme
+.theme--full-width {
+  --content--width--normal: 100%;
+  --content--width--narrow: 100%;
+}
+
+.theme--vspace--1 {
+  --space--group--vspace--header: 100px;
 }
