@@ -153,12 +153,13 @@
  */
 .content--width--normal {
   // "normal" is a reserved content width keyword
-  --content--width: var(--content--width--normal, 500px);
+  //--content--width: var(--content--width--normal, 500px);
+  --width--max-width: var(--width--max-width--normal, 500px);
 }
 
 .content--width--full {
   // "full" is a reserved content width keyword and is always 100%
-  --content--width: 100%;
+  --width--max-width: 100%;
   ///*@include realm-reset(width);*/
 }
 
@@ -215,11 +216,11 @@
  * default behaviors for different kind of content.
  */
 %content--defaults--width--normal {
-  --content--width--default: var(--content--width--normal, 600px);
+  --width--max-width--default: var(--width--max-width--normal, 600px);
 }
 
 %content--defaults--width--full {
-  --content--width--default: 100%;
+  --width--max-width--default: 100%;
 }
 
 %content--defaults--air--none {
