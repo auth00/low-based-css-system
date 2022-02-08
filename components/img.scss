@@ -10,9 +10,9 @@
  */
 .img {
   @extend %class--media;
-  @extend %defaults--air--none;
-
   @include class--width(img, media);
+
+  @extend %defaults--air--none;
 
   @include prop(vspace-before, space, 0px, img, media);
   @include prop(vspace-after, space, 0px, img, media);

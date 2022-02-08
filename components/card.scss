@@ -2,15 +2,10 @@
 
 .card {
   @extend %class--color-scheme;
+  @include class--width(card, widget);
 
   @include prop(vspace-before, space, 0px, card, widget);
   @include prop(vspace-after, space, 0px, card, widget);
-
-  @include prop(min-width, width, auto, card, widget);
-  @include prop(max-width, width, 100%, card, widget);
-
-  min-width: var(--_min-width);
-  max-width: var(--_max-width);
 
   > .card__header {
     @extend .content--air--none;

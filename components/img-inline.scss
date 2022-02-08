@@ -5,9 +5,9 @@
  */
 .img-embed {
   @extend %class--media;
-  @extend %defaults--air--normal;
-
   @include class--width-with-viewport-air(img-embed, media);
+
+  @extend %defaults--air--normal;
 
   @include prop(vspace-before, space, 0px, img-embed, media);
   @include prop(vspace-after, space, 0px, img-embed, media);
