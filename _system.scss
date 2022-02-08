@@ -327,7 +327,7 @@
   @extend %content;
 
   @if $name == '' {
-    @include content--class--width-with-viewport-air('default', 'text');
+    @include content--class--width-with-viewport-air();
   } @else {
     @include content--class--width-with-viewport-air($name, 'text');
   }
