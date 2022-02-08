@@ -312,7 +312,7 @@
 
   @include realm-reset(color-scheme);
 
-  display: block flow-root; // Needed to make sure margins are filled
+  display: flow-root; // Needed to make sure margins are filled
   background: var(--_background);
 
   transition: background-color 1s;

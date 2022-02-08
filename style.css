@@ -5,6 +5,8 @@
   --color--background--green: rgb(156, 253, 156);
   --color--background--blue: rgb(110, 152, 231);
   --color--text: black;
+
+  --width--widget--card--max-width: 200px;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,5 +1,7 @@
 @import 'system.scss';
-
+.card {
+  --content--width: var(--_max-width);
+}
 .card {
   @extend %content--class--color-scheme;
 
