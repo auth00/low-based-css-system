@@ -1,4 +1,4 @@
-import './theme-default.scss';
+import './theme-basic.scss';
 import './style.css';
 
 /*

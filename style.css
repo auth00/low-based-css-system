@@ -73,3 +73,55 @@
 .columns--qwe .card {
   --width--max-width--default: 320px;
 }
+
+.root {
+  --typo-listan--1--font-family: arial;
+}
+
+.typo-1 {
+  --_--space--widget--vspace-footer: revert;
+  --_--typesetting--text--body--font-family: inital;
+  --_--typesetting--text--body--font-size: 1em;
+--_--typesetting--text--body--font-weight: inital;
+--_--typesetting--text--body--line-height: inital;
+--_--typesetting--text--body-2--font-family: var(--typo-listan--1--font-family);
+--_--typesetting--text--body-2--font-size: 1em;
+--_--typesetting--text--body-2--font-weight: inital;
+--_--typesetting--text--body-2--line-height: inital;
+--_--typesetting--text--caption--font-family: inital;
+--_--typesetting--text--caption--font-size: 1em;
+--_--typesetting--text--caption--font-weight: inital;
+--_--typesetting--text--caption--line-height: inital;
+--_--typesetting--text--font-family: revert;
+--_--typesetting--text--font-size: revert;
+--_--typesetting--text--font-weight: revert;
+--_--typesetting--text--headline-1--font-family: inital;
+--_--typesetting--text--headline-1--font-size: 2em;
+--_--typesetting--text--headline-1--font-weight: bold;
+--_--typesetting--text--headline-1--line-height: inital;
+--_--typesetting--text--headline-2--font-family: inital;
+--_--typesetting--text--headline-2--font-size: 2em;
+--_--typesetting--text--headline-2--font-weight: bold;
+--_--typesetting--text--headline-2--line-height: inital;
+--_--typesetting--text--headline-3--font-family: inital;
+--_--typesetting--text--headline-3--font-size: 2em;
+--_--typesetting--text--headline-3--font-weight: bold;
+--_--typesetting--text--headline-3--line-height: inital;
+--_--typesetting--text--headline-4--font-family: inital;
+--_--typesetting--text--headline-4--font-size: 1.33em;
+--_--typesetting--text--headline-4--font-weight: bold;
+--_--typesetting--text--headline-4--line-height: inital;
+--_--typesetting--text--ingress--font-family: inital;
+--_--typesetting--text--ingress--font-size: 1em;
+--_--typesetting--text--ingress--font-weight: inital;
+--_--typesetting--text--ingress--line-height: inital;
+--_--typesetting--text--line-height: revert;
+--_--typesetting--text--menu--font-family: inital;
+--_--typesetting--text--menu--font-size: 1em;
+--_--typesetting--text--menu--font-weight: inital;
+--_--typesetting--text--menu--line-height: inital;
+--_--typesetting--text--summary--font-family: inital;
+--_--typesetting--text--summary--font-size: 1em;
+--_--typesetting--text--summary--font-weight: inital;
+--_--typesetting--text--summary--line-height: inital;
+}
