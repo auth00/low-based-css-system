@@ -5,8 +5,12 @@
  */
 .img-embed {
   @extend %class--media;
+
   @extend %class--width-with-viewport-air;
   @include class--width-with-viewport-air--props(img-embed, media);
+
+  @extend %class--space;
+  @include class--space--props(img, media);
 
   @extend %defaults--air--normal;
 
