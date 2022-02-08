@@ -14,32 +14,34 @@
  *
  */
 .group {
+  @extend %class--widget;
+
   @extend %class--color-scheme;
 
-  @include prop(vspace--header, space, 0px, default, group);
-  @include prop(vspace--footer, space, 0px, default, group);
+  @include prop(vspace-header, space, 0px, default, group);
+  @include prop(vspace-footer, space, 0px, default, group);
 
   > div {
     overflow-x: auto;
-    margin-top: var(--_vspace--header);
-    margin-bottom: var(--_vspace--footer);
+    margin-top: var(--_vspace-header);
+    margin-bottom: var(--_vspace-footer);
 
     > :first-child {
       .group--header {
-        margin-top: calc(-1 * var(--_vspace--header));
+        margin-top: calc(-1 * var(--_vspace-header));
       }
     }
 
     > :last-child {
       .group--footer {
-        margin-bottom: calc(-1 * var(--_vspace--footer));
+        margin-bottom: calc(-1 * var(--_vspace-footer));
       }
     }
 
     > :first-child:last-child {
       .group--banner {
-        margin-top: calc(-1 * var(--_vspace--header));
-        margin-bottom: calc(-1 * var(--_vspace--footer));
+        margin-top: calc(-1 * var(--_vspace-header));
+        margin-bottom: calc(-1 * var(--_vspace-footer));
       }
     }
   }

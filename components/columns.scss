@@ -14,14 +14,16 @@
 
   @extend %defaults--air--none;
 
-  @include prop(space-between, space, 0px, columns, widget);
-  @include prop(max-column-width, space, 0px, columns, widget);
+  @include prop(space-between-rows, space, 0px, columns, widget);
+  @include prop(space-between-columns, space, 0px, columns, widget);
+  @include prop(max-column-width, width, 0px, columns, widget);
 
   > div {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    gap: var(--_space-between);
+    row-gap: var(--_space-between-rows);
+    column-gap: var(--_space-between-columns);
     > .columns__column {
       flex-grow: 1;
       flex-shrink: 1;

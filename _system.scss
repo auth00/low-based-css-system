@@ -138,7 +138,7 @@
   margin-inline: auto;
   padding: 0 var(--_content--air);
 */
-  transition: color 1s;
+  transition: var(--content-transitions, color 1s);
 }
 
 .content {

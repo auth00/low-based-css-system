@@ -6,7 +6,7 @@
   --color--background--blue: rgb(110, 152, 231);
   --color--text: black;
 
-  --width--widget--card--max-width: 300px;
+  --width--widget--card--max-width: 400px;
   --width--text--max-width: 300px;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .theme--vspace--1 {
-  --space--group--vspace--header: 100px;
+  --space--group--vspace-header: 100px;
 }
 
 .content--width--narrow {
@@ -62,5 +62,12 @@
 }
 
 .columns--qwe {
-  --width--max-column-width: 100px;
+  --width--min-width--default: 160px;
+  --width--widget--max-column-width: calc(100vw / 5);
+  --space--widget--columns--viewport-air: 30px;
+  --space--widget--columns--space-between-rows: 10px;
+  --space--widget--columns--space-between-columns: 30px;
+}
+.columns--qwe .card {
+  --width--max-width--default: 320px;
 }
