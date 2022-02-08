@@ -262,11 +262,16 @@
 
 @mixin content--class--width($class: '', $realm: '') {
   @if $realm == '' {
-    @include prop(max-width, width, 100%);
+    @include prop(max-width, width, var(--width--max-width--default, 100%));
   } @else {
-    @include prop(max-width, width, 100%, $class, $realm);
+    @include prop(
+      max-width,
+      width,
+      var(--width--max-width--default, 100%),
+      $class,
+      $realm
+    );
   }
-  //--_content--width: var(--content--width, var(--content--width--default));
 
   max-width: var(--_max-width);
 }
@@ -418,6 +423,8 @@
   @extend %content--class--media;
   @extend %content--defaults--air--none;
 
+  @include content--class--width(img, media);
+
   @include prop(vspace-before, space, 0px, img, media);
   @include prop(vspace-after, space, 0px, img, media);
 
@@ -431,6 +438,8 @@
 .img-embed {
   @extend %content--class--media;
   @extend %content--defaults--air--normal;
+
+  @include content--class--width-with-viewport-air(img-embed, media);
 
   @include prop(vspace-before, space, 0px, img-embed, media);
   @include prop(vspace-after, space, 0px, img-embed, media);

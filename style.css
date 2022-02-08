@@ -44,7 +44,6 @@
   --color-scheme--background: var(--color--background--blue);
 }
 
-// Anywhere in the tree we can switch over to another theme
 .theme--full-width {
   --content--width--normal: 100%;
   --content--width--narrow: 100%;
@@ -52,4 +51,12 @@
 
 .theme--vspace--1 {
   --space--group--vspace--header: 100px;
+}
+
+div.content--width--narrow {
+  --width--max-width--default: 400px;
+}
+
+div.content--width--wide {
+  --width--max-width--default: 800px;
 }
