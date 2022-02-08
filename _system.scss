@@ -160,6 +160,7 @@
   line-height: var(--_line-height);
   text-align: var(--_text-align);
   color: var(--_text-color);
+  transition: color 1s;
 }
 
 .content {
@@ -313,6 +314,8 @@
 
   display: block flow-root; // Needed to make sure margins are filled
   background: var(--_background);
+
+  transition: background-color 1s;
 
   > div {
     --color-scheme--background: var(

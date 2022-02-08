@@ -1,5 +1,10 @@
-.button {
-  @extend %content--class--color-scheme;
+@import 'system.scss';
 
-  @include prop(background-inverted, color-scheme, red);
+.button {
+  @include prop(background-inverted, color-scheme, darkgray);
+  @include prop(text-color-inverted, color-scheme, white);
+
+  transition: color 1s;
+  color: var(--_text-color-inverted);
+  background: var(--_background-inverted);
 }
