@@ -61,6 +61,9 @@
   #{$selectors} {
     @include class--text($name);
 
+    @extend %class--space;
+    @include class--space--props($name, 'text');
+
     @each $realm,
       $props
         in (
@@ -329,9 +332,6 @@
 
   @extend %class--width-with-viewport-air;
   @include class--width-with-viewport-air--props($name, 'text');
-
-  @extend %class--space;
-  @include class--space--props($name, 'text');
 
   @extend %defaults--air--normal;
   @extend %defaults--width--normal;

@@ -1,0 +1,21 @@
+@import '../system.scss';
+
+.layout {
+  @extend %class--widget;
+
+  @include prop(areas, layout, 'A B');
+
+  > div {
+    display: grid;
+    grid-template-areas:
+      'A A'
+      'B B';
+
+    grid-template-rows: 150px 1fr;
+    grid-template-columns: 1fr;
+
+    > div {
+      grid-area: var(--area);
+    }
+  }
+}
