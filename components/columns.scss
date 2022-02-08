@@ -21,8 +21,10 @@
     flex-wrap: wrap;
     align-content: center;
     gap: var(--_space-between);
-    > div {
-      flex: 1 1 var(--_max-width);
+    > .columns__column {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: var(--_max-width);
       @extend %class--width;
       > div {
         @extend .space--vspace--none;
