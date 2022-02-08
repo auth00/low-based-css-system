@@ -247,34 +247,42 @@
   }
 }
 
-@mixin class--width($class: '', $realm: '') {
-  @if $realm == '' {
-    @include prop(max-width, width, var(--width--max-width--default, 100%));
-  } @else {
-    @include prop(
-      max-width,
-      width,
-      var(--width--max-width--default, 100%),
-      $class,
-      $realm
-    );
-  }
-
+%class--width {
   max-width: var(--_max-width);
 }
+@mixin class--width--props($class, $realm) {
+  @include prop(
+    max-width,
+    width,
+    var(--width--max-width--default, 100%),
+    $class,
+    $realm
+  );
+}
 
-@mixin class--width-with-viewport-air($class: '', $realm: '') {
-  @include class--width($class, $realm);
-
-  /*
-   * Added 
-   */
+%class--width-with-viewport-air {
   max-width: \min(
     var(--_max-width),
     calc(
       100vw - var(--scrollbar--width, 0px) - var(--content--air--default, 0px) *
         2
     )
+  );
+}
+@mixin class--width-with-viewport-air--props($class, $realm) {
+  @include class--width--props($class, $realm);
+}
+
+%class--space {
+  max-width: var(--_max-width);
+}
+@mixin class--space--props($name, $class) {
+  @include prop(
+    max-width,
+    $name,
+    var(--width--max-width--default, 100%),
+    $class,
+    space
   );
 }
 
@@ -310,14 +318,11 @@
  *  * air:on
  *  * width:normal
  */
-@mixin class--text($name: '') {
+@mixin class--text($name) {
   @extend %content;
 
-  @if $name == '' {
-    @include class--width-with-viewport-air();
-  } @else {
-    @include class--width-with-viewport-air($name, 'text');
-  }
+  @extend %class--width-with-viewport-air;
+  @include class--width-with-viewport-air--props($name, 'text');
 
   @extend %defaults--air--normal;
   @extend %defaults--width--normal;

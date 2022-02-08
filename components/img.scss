@@ -10,7 +10,8 @@
  */
 .img {
   @extend %class--media;
-  @include class--width(img, media);
+  @extend %class--width;
+  @include class--width--props(img, media);
 
   @extend %defaults--air--none;
 
